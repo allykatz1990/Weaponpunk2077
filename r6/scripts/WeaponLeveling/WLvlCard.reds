@@ -171,28 +171,19 @@ public abstract class WLvlCard {
       root.SetAnchorPoint(0.0, 0.5);
       root.SetMargin(60.0, 0.0, 0.0, 0.0);
     } else {
-      // during play the position is a setting; the default is the left edge, below the middle
+      // during play: left or right edge, at the height set in Mod Settings (0 = bottom, 100 = top).
+      // The card always stays fully on screen (the game's HUD is laid out on a 2160-pixel-tall canvas).
+      let pct = Cast<Float>(Max(0, Min(100, cfg.cardHeight))) / 100.0;
+      let room = MaxF(0.0, 2160.0 - h * s);
+      let top = (1.0 - pct) * room;
       if cfg.cardPosition == 2 {
-        root.SetAnchor(inkEAnchor.CenterRight);
-        root.SetAnchorPoint(1.0, 0.5);
-        root.SetMargin(0.0, 0.0, 96.0, 0.0);
+        root.SetAnchor(inkEAnchor.TopRight);
+        root.SetAnchorPoint(1.0, 0.0);
+        root.SetMargin(0.0, top, 96.0, 0.0);
       } else {
-        if cfg.cardPosition == 3 {
-          root.SetAnchor(inkEAnchor.TopLeft);
-          root.SetAnchorPoint(0.0, 0.0);
-          root.SetMargin(96.0, 300.0, 0.0, 0.0);
-        } else {
-          if cfg.cardPosition == 4 {
-            root.SetAnchor(inkEAnchor.BottomLeft);
-            root.SetAnchorPoint(0.0, 1.0);
-            root.SetMargin(96.0, 0.0, 0.0, 360.0);
-          } else {
-            // left edge, 30% of the screen below the middle, clear of the game's level-up message
-            root.SetAnchor(inkEAnchor.CenterLeft);
-            root.SetAnchorPoint(0.0, 0.5);
-            root.SetMargin(96.0, 648.0, 0.0, 0.0);
-          }
-        }
+        root.SetAnchor(inkEAnchor.TopLeft);
+        root.SetAnchorPoint(0.0, 0.0);
+        root.SetMargin(96.0, top, 0.0, 0.0);
       }
     }
     root.SetSize(w * s, h * s);

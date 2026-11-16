@@ -188,12 +188,21 @@ public class WLvlConfig {
 
   @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
   @runtimeProperty("ModSettings.category", "Weapon card")
-  @runtimeProperty("ModSettings.displayName", "Card position during play")
-  @runtimeProperty("ModSettings.description", "1: left, below the middle.  2: middle right.  3: top left.  4: bottom left. (In menus the card is always at the middle left.)")
+  @runtimeProperty("ModSettings.displayName", "Card side during play")
+  @runtimeProperty("ModSettings.description", "1: left edge of the screen.  2: right edge. (In menus the card is always at the middle left.)")
   @runtimeProperty("ModSettings.step", "1")
   @runtimeProperty("ModSettings.min", "1")
-  @runtimeProperty("ModSettings.max", "4")
+  @runtimeProperty("ModSettings.max", "2")
   public let cardPosition: Int32 = 1;
+
+  @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
+  @runtimeProperty("ModSettings.category", "Weapon card")
+  @runtimeProperty("ModSettings.displayName", "Card height during play")
+  @runtimeProperty("ModSettings.description", "Where the card sits on the screen during play: 0 is the bottom, 100 the top. The card always stays fully on screen. Default 20 keeps it clear of the game's level-up message.")
+  @runtimeProperty("ModSettings.step", "1")
+  @runtimeProperty("ModSettings.min", "0")
+  @runtimeProperty("ModSettings.max", "100")
+  public let cardHeight: Int32 = 20;
 
   @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
   @runtimeProperty("ModSettings.category", "Debug")

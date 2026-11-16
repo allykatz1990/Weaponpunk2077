@@ -19,7 +19,7 @@ This mod also includes a hidden system. No spoilers here: play and discover it. 
 - **Bonuses per level.** Damage rises every level, each level adding a little less. Fire rate, reload speed and recoil improve up to a ceiling at level 20.
 - **Spend your spare points.** Perk points (500 XP), attribute points (1,500 XP), and relic points (+25% kill XP for 200 kills, stacking to +100%). Refund a weapon's points at any time.
 - **Better Leveling support.** With Better Leveling installed, point values scale automatically to its level cap and points per level.
-- **Weapon card.** Shows the weapon's level, damage bonus and XP when you draw it. Position and compact mode are settings.
+- **Weapon card.** Shows the weapon's level, damage bonus and XP when you draw it. Its side, its height on screen (0 bottom to 100 top) and compact mode are settings.
 - **Inventory tooltip line** with the weapon's level and XP.
 - **Everything is configurable** in Mod Settings.
 
