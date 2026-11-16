@@ -1,0 +1,41 @@
+# Weaponpunk 2077 - Weapon Leveling Enhanced - TweakXL records
+# Copyright (C) 2026 the Weaponpunk 2077 authors. GPL-3.0.
+#
+# SPOILERS: the Berserker buff belongs to the hidden system.
+#
+# The Berserker buff icon: the samurai mask from the game's photo mode frames. The status effect
+# itself does nothing; its only job is to show the icon and stack count in the buff bar. The damage
+# bonus is applied by the mod's scripts.
+
+UIIcon.WLvlBerserker:
+  $type: UIIcon
+  atlasResourcePath: base\gameplay\gui\fullscreen\photo_mode\frame\samuraimaskeframeflex.inkatlas
+  atlasPartName: frameCenterImage
+
+WLvl.BerserkerDuration:
+  $type: StatModifierGroup
+  statModifiers:
+    - $type: ConstantStatModifier
+      statType: BaseStats.MaxDuration
+      modifierType: Additive
+      value: 10
+
+WLvl.BerserkerStacks:
+  $type: StatModifierGroup
+  statModifiers:
+    - $type: ConstantStatModifier
+      statType: BaseStats.MaxStacks
+      modifierType: Additive
+      value: 5
+
+WLvl.BerserkerUI:
+  $type: StatusEffectUIData
+  displayName: Berserker
+  description: +5% damage per stack
+  iconPath: WLvlBerserker
+
+WLvl.Berserker:
+  $base: BaseStatusEffect.BuffStatusEffect
+  duration: WLvl.BerserkerDuration
+  maxStacks: WLvl.BerserkerStacks
+  uiData: WLvl.BerserkerUI
