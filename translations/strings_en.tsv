@@ -1,0 +1,231 @@
+key	english	notes
+WLvl-Card-LevelUp	LEVEL UP	Weapon card
+WLvl-Card-NewTitle	NEW TITLE: "{0}"	Weapon card
+WLvl-Card-NowShowing	Now showing "{0}"	Weapon card
+WLvl-Card-Level	LEVEL {0}	Weapon card
+WLvl-Card-Damage	+{0}% damage	Weapon card
+WLvl-Card-XP	{0} / {1} XP	Weapon card
+WLvl-Card-Boost	XP BOOST +{0}%    {1} kills left	Weapon card
+WLvl-Msg-ReachedLevel	{0} reached weapon level {1}	Messages on the card when spending or refunding points
+WLvl-Msg-NoRead	Could not read your points	Messages on the card when spending or refunding points
+WLvl-Msg-NoPerk	No perk points to spend	Messages on the card when spending or refunding points
+WLvl-Msg-NoAttr	No attribute points to spend	Messages on the card when spending or refunding points
+WLvl-Msg-NoRelic	No relic points to spend	Messages on the card when spending or refunding points
+WLvl-Msg-Left	{0} left	Messages on the card when spending or refunding points
+WLvl-Msg-BoostBought	XP boost bought  ({0})	Messages on the card when spending or refunding points
+WLvl-Msg-XPGained	+{0} XP  ({1})	Messages on the card when spending or refunding points
+WLvl-Msg-LevelUpPrefix	LEVEL UP   {0}	Messages on the card when spending or refunding points
+WLvl-Msg-NothingSpent	No points have been spent on this weapon	Messages on the card when spending or refunding points
+WLvl-Msg-Refunded	Refunded {0} perk, {1} attribute points	Messages on the card when spending or refunding points
+WLvl-Menu-Relic	Relic point  (+{0}% kill XP, {1} kills)	Spend menu options
+WLvl-Menu-Refund	Refund this weapon's points	Spend menu options
+WLvl-Menu-Title	Change the shown title	Spend menu options
+WLvl-Menu-Attr	Attribute points x{0}  (+{1} XP)	Spend menu options
+WLvl-Menu-Perk	Perk points x{0}  (+{1} XP)	Spend menu options
+WLvl-Hint-ChangePad	Tap to change, hold to use	Help line under the spend menu
+WLvl-Hint-ChangeKeys	Next option to change, Confirm to use	Help line under the spend menu
+WLvl-Hint-FirstPad	Hold again to use, tap to change	Help line under the spend menu
+WLvl-Hint-FirstKeys	Confirm again to use, Next option to change	Help line under the spend menu
+WLvl-Hint-SurePad	Are you sure? Hold again to confirm	Help line under the spend menu
+WLvl-Hint-SureKeys	Are you sure? Press Confirm again	Help line under the spend menu
+WLvl-Tip-Also	Also: {0}	Inventory tooltip
+WLvl-Tip-LeftHandFeats	In the left hand: feat bonuses are off	Inventory tooltip
+WLvl-Tip-LostOnSale	Titles are lost if sold or dismantled.	Inventory tooltip
+WLvl-Tip-LeftHandTitles	In the left hand: title bonuses are off	Inventory tooltip
+WLvl-Tip-Level	LVL {0}   {1} / {2} XP	Inventory tooltip
+WLvl-Tip-Spent	({0} perk, {1} attribute pts)	Inventory tooltip
+WLvl-TitleQuote	"{0}"	Quote marks around a title after a gun's name ({0} = the title)
+WLvl-Effect-Faction	+{0}% damage against {1}	What a title does (tooltip)
+WLvl-Effect-Carma	+{0}% damage to vehicles, mechs and drones	What a title does (tooltip)
+WLvl-Effect-Psycho	+{0}% damage to cyberpsychos and MaxTac	What a title does (tooltip)
+WLvl-Effect-Karen	+{0}% damage against anyone who hurt you first	What a title does (tooltip)
+WLvl-Faction-0	Arasaka	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-1	the Tyger Claws	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-2	Maelstrom	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-3	the Scavengers	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-4	the Voodoo Boys	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-5	the 6th Street	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-6	the Valentinos	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-7	the Animals	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-8	Militech	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-9	the Barghest	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-10	the Wraiths	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-11	NUSA and the FIA	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-12	the NCPD	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-13	MaxTac	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-14	NetWatch	Faction names, used in "+{0}% damage against {1}"
+WLvl-Faction-15	Kang Tao	Faction names, used in "+{0}% damage against {1}"
+WLvl-FactionTitle-0-1	Suit Piercer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-0-2	Saka Wrecker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-0-3	Tower Toppler	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-1-1	Street Sweeper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-1-2	Claw Clipper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-1-3	Neon Requiem	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-2-1	Chrome Crusher	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-2-2	Borg Shredder	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-2-3	Rust Maker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-3-1	Vulture Killer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-3-2	Harvester Hunter	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-3-3	Last Harvest	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-4-1	Proxy Piercer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-4-2	Daemon Slayer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-4-3	Chapel Burner	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-5-1	Flag Burner	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-5-2	Militia Mauler	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-5-3	Patriot's End	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-6-1	Halo Breaker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-6-2	Altar Stainer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-6-3	Deicide	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-7-1	Juice Drainer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-7-2	Behemoth Breaker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-7-3	Apex Extinction	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-8-1	Flak Shredder	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-8-2	Convoy Crusher	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-8-3	The General's Grave	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-9-1	Hound Hunter	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-9-2	Pack Breaker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-9-3	Dogtown's Reckoning	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-10-1	Raffen Reaper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-10-2	Shiv Snapper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-10-3	Dust to Dust	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-11-1	Spook Hunter	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-11-2	Agency Eraser	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-11-3	State of Disunion	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-12-1	Siren Silencer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-12-2	Badge Breaker	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-12-3	Precinct Purger	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-13-1	Mantis Clipper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-13-2	Squad Wiper	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-13-3	Uncontainable	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-14-1	Trace Severer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-14-2	Watcher Killer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-14-3	The Blind Spot	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-15-1	Smart Jammer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-15-2	Dragon Slayer	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-FactionTitle-15-3	Kang Tao's Collapse	Faction titles: tier 1, 2, 3 for each faction (same order as the faction names)
+WLvl-Carma-1	Carmageddon I	Vehicle titles
+WLvl-Carma-2	Carmageddon II	Vehicle titles
+WLvl-Carma-3	Carmageddon III	Vehicle titles
+WLvl-Psycho-1	Psychosquad Leader I	Cyberpsycho titles
+WLvl-Psycho-2	Psychosquad Leader II	Cyberpsycho titles
+WLvl-Psycho-3	Psychosquad Leader III	Cyberpsycho titles
+WLvl-Karen-1	Karen Slayer	"Who started it" titles
+WLvl-Karen-2	Karen Slayer II	"Who started it" titles
+WLvl-Karen-3	Karen Slayer III	"Who started it" titles
+WLvl-Feat-0	Lead Storm	Feat titles
+WLvl-Feat-1	Reaper's Tempo	Feat titles
+WLvl-Feat-2	Bullet Hell Sovereign	Feat titles
+WLvl-Feat-3	Doom Slayer	Feat titles
+WLvl-Feat-4	Smart Bomb	Feat titles
+WLvl-Feat-5	Untouchable	Feat titles
+WLvl-Feat-6	Ghost Protocol	Feat titles
+WLvl-Feat-7	Tactical Espionage	Feat titles
+WLvl-Feat-8	Snake Eater	Feat titles
+WLvl-FeatNote-0	Berserker: 5 kills in 5 s, +5% damage per stack (3 max)	What each feat does (same order as the feat titles)
+WLvl-FeatNote-1	Berserker: 5 kills in 5 s, +5% damage per stack (4 max)	What each feat does (same order as the feat titles)
+WLvl-FeatNote-2	Berserker: 5 kills in 5 s, +5% damage per stack (5 max)	What each feat does (same order as the feat titles)
+WLvl-FeatNote-3	Kills heal 2% health	What each feat does (same order as the feat titles)
+WLvl-FeatNote-4	+25% explosion damage	What each feat does (same order as the feat titles)
+WLvl-FeatNote-5	10% less damage taken	What each feat does (same order as the feat titles)
+WLvl-FeatNote-6	+25% damage to unaware enemies	What each feat does (same order as the feat titles)
+WLvl-FeatNote-7	+50% weapon XP from stealth kills	What each feat does (same order as the feat titles)
+WLvl-FeatNote-8	Healing items heal 5% more health	What each feat does (same order as the feat titles)
+WLvl-Trophy-0	Smashed	Trophy titles for named enemies
+WLvl-Trophy-1	Kingslayer	Trophy titles for named enemies
+WLvl-Trophy-2	Honor's Mercy	Trophy titles for named enemies
+WLvl-Trophy-3	Maelstrom Interrupted	Trophy titles for named enemies
+WLvl-Trophy-4	Evelyn's Reckoning	Trophy titles for named enemies
+WLvl-Trophy-5	Cryptid Hunter	Trophy titles for named enemies
+WLvl-Trophy-6	The Handler's Price	Trophy titles for named enemies
+WLvl-Trophy-7	Sins of Kabuki	Trophy titles for named enemies
+WLvl-Trophy-8	The Trauma Weavers	Trophy titles for named enemies
+WLvl-Trophy-9	Loa's Last Rites	Trophy titles for named enemies
+WLvl-Trophy-10	Firewall Breach	Trophy titles for named enemies
+WLvl-Trophy-11	Dumb Luck Ran Out	Trophy titles for named enemies
+WLvl-Trophy-12	Wraith Exorcist	Trophy titles for named enemies
+WLvl-Trophy-13	Clouded Judgment	Trophy titles for named enemies
+WLvl-Trophy-14	River's Justice	Trophy titles for named enemies
+WLvl-Trophy-15	Myth Buster	Trophy titles for named enemies
+WLvl-Trophy-16	Gatekeeper's Fall	Trophy titles for named enemies
+WLvl-TrophyNote-0	Killed Adam Smasher	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-1	Killed Kurt Hansen	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-2	Killed Sandayu Oda	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-3	Killed Royce	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-4	Killed Woodman	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-5	Killed Sasquatch	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-6	Killed Solomon Reed	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-7	Killed Jotaro Shobo	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-8	Killed a Persson brother	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-9	Killed Placide	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-10	Killed Bryce Mosley	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-11	Killed Dum Dum	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-12	Killed Nash	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-13	Killed Fingers	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-14	Killed Anthony Harris	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-15	Destroyed the Chimera	Trophy notes (same order as the trophy titles)
+WLvl-TrophyNote-16	Destroyed Cerberus	Trophy notes (same order as the trophy titles)
+WLvl-Secret-0	The Board's Worst Nightmare	Secret titles
+WLvl-Secret-1	The Solo's Last Laugh	Secret titles
+WLvl-SecretNote-0	+50% damage against Arasaka. Smasher has a weak spot, once.	What each secret title does
+WLvl-SecretNote-1	Kills in one shot. 3-round magazine, slower reload and fire rate.	What each secret title does
+WLvl-Cat-General	General	Mod Settings: category names
+WLvl-Cat-SpendingPoints	Spending points	Mod Settings: category names
+WLvl-Cat-Titles	Titles	Mod Settings: category names
+WLvl-Cat-Leveling	Leveling	Mod Settings: category names
+WLvl-Cat-WeaponCard	Weapon card	Mod Settings: category names
+WLvl-Cat-Debug	Debug	Mod Settings: category names
+WLvl-Set-enabled	Enable weapon leveling	Mod Settings: setting names
+WLvl-Set-xpMultiplier	Kill XP multiplier	Mod Settings: setting names
+WLvl-Set-damageCoef	Damage bonus strength	Mod Settings: setting names
+WLvl-Set-keyCycle	Next option (keyboard)	Mod Settings: setting names
+WLvl-Set-keyConfirm	Confirm (keyboard)	Mod Settings: setting names
+WLvl-Set-titleChoice	Title shown after the gun's name	Mod Settings: setting names
+WLvl-Set-padButton	Spend button (controller, inventory only)	Mod Settings: setting names
+WLvl-Set-padHoldSeconds	Hold time to confirm (seconds)	Mod Settings: setting names
+WLvl-Set-perkXP	XP per perk point	Mod Settings: setting names
+WLvl-Set-attributeXP	XP per attribute point	Mod Settings: setting names
+WLvl-Set-autoPointScale	Automatic point value (Better Leveling)	Mod Settings: setting names
+WLvl-Set-pointScale	Point value (percent)	Mod Settings: setting names
+WLvl-Set-relicBoostPercent	Relic boost per point (percent)	Mod Settings: setting names
+WLvl-Set-relicBoostKills	Relic boost length (kills)	Mod Settings: setting names
+WLvl-Set-levelHandling	Handling improves with level	Mod Settings: setting names
+WLvl-Set-headshotBonus	Headshot kill XP bonus (percent)	Mod Settings: setting names
+WLvl-Set-stealthBonus	Stealth kill XP bonus (percent)	Mod Settings: setting names
+WLvl-Set-lowLevelReduction	Less XP from low-level enemies	Mod Settings: setting names
+WLvl-Set-lowLevelGap	Low-level gap	Mod Settings: setting names
+WLvl-Set-showCard	Show card when drawing a weapon	Mod Settings: setting names
+WLvl-Set-cardSeconds	Card duration (seconds)	Mod Settings: setting names
+WLvl-Set-compactCard	Compact card	Mod Settings: setting names
+WLvl-Set-cardPosition	Card side during play	Mod Settings: setting names
+WLvl-Set-cardHeight	Card height during play	Mod Settings: setting names
+WLvl-Set-debugLog	Debug log	Mod Settings: setting names
+WLvl-SetDesc-enabled	Turns XP gain and level bonuses on or off. Saved levels are kept.	Mod Settings: setting descriptions
+WLvl-SetDesc-xpMultiplier	Scales all XP earned from kills.	Mod Settings: setting descriptions
+WLvl-SetDesc-damageCoef	How much damage each weapon level adds. Each level adds a little less than the one before. 0 turns the bonus off.	Mod Settings: setting descriptions
+WLvl-SetDesc-keyCycle	Steps through the spend menu: perk points x1, x5, x10, attribute points x1, x5, x10, relic point, refund. Works with a weapon drawn or highlighted in the inventory.	Mod Settings: setting descriptions
+WLvl-SetDesc-keyConfirm	Carries out the option shown on the card. Relic points and refunds ask for a second press.	Mod Settings: setting descriptions
+WLvl-SetDesc-titleChoice	Which of a gun's titles appears in quotes after its name. Only the name changes: every title a gun has earned always works. If a gun has fewer titles than the choice needs, its strongest is shown.	Mod Settings: setting descriptions
+WLvl-SetDesc-padButton	Tap to step through the spend menu for the weapon highlighted in the inventory, hold and release to use the option shown. Default: Select / View button.	Mod Settings: setting descriptions
+WLvl-SetDesc-padHoldSeconds	How long the controller spend button must be held to count as a confirm instead of a tap.	Mod Settings: setting descriptions
+WLvl-SetDesc-perkXP	How much weapon XP one perk point buys in the spend menu, before the point value below is applied.	Mod Settings: setting descriptions
+WLvl-SetDesc-attributeXP	How much weapon XP one attribute point buys in the spend menu, before the point value below is applied.	Mod Settings: setting descriptions
+WLvl-SetDesc-autoPointScale	With Better Leveling installed, works out what perk and attribute points are worth from its level cap and points per level, so a point is worth the same share of a playthrough as in the base game. Changes to Better Leveling's settings apply on the next launch. Turn off to use the manual value below.	Mod Settings: setting descriptions
+WLvl-SetDesc-pointScale	Scales the XP from perk and attribute points. Used when the automatic value is off or Better Leveling is not installed.	Mod Settings: setting descriptions
+WLvl-SetDesc-relicBoostPercent	Extra kill XP from each relic point spent. Stacks up to four times.	Mod Settings: setting descriptions
+WLvl-SetDesc-relicBoostKills	How many kills a relic boost lasts. Points spent at full strength add this many more kills.	Mod Settings: setting descriptions
+WLvl-SetDesc-levelHandling	Fire rate, reload speed and recoil improve with weapon level, up to a ceiling at level 20 (10% faster fire, 15% faster reload, 20% less recoil). Applies the next time the weapon is drawn.	Mod Settings: setting descriptions
+WLvl-SetDesc-headshotBonus	Extra XP when the killing blow is a headshot.	Mod Settings: setting descriptions
+WLvl-SetDesc-stealthBonus	Extra XP for killing an enemy who had not noticed you.	Mod Settings: setting descriptions
+WLvl-SetDesc-lowLevelReduction	Enemies far below your level give half XP. Your level counts as 60 at most, so extended-level saves are not punished.	Mod Settings: setting descriptions
+WLvl-SetDesc-lowLevelGap	How many levels below you an enemy has to be to give half XP.	Mod Settings: setting descriptions
+WLvl-SetDesc-showCard	Shows the weapon's level and XP when you draw or swap to it.	Mod Settings: setting descriptions
+WLvl-SetDesc-cardSeconds	How long the card stays on screen.	Mod Settings: setting descriptions
+WLvl-SetDesc-compactCard	When drawing a weapon, show only its name and level. The spend menu and level-ups still use the full card.	Mod Settings: setting descriptions
+WLvl-SetDesc-cardPosition	1: left edge of the screen.  2: right edge. (In menus the card is always at the middle left.)	Mod Settings: setting descriptions
+WLvl-SetDesc-cardHeight	Where the card sits on the screen during play: 0 is the bottom, 100 the top. The card always stays fully on screen. Default 20 keeps it clear of the game's level-up message.	Mod Settings: setting descriptions
+WLvl-SetDesc-debugLog	Writes every counted kill and level change to the WeaponLeveling log for bug reports.	Mod Settings: setting descriptions
+WLvl-Val-titleChoice-Auto	Strongest	Mod Settings: dropdown choices
+WLvl-Val-titleChoice-Second	Second strongest	Mod Settings: dropdown choices
+WLvl-Val-titleChoice-Third	Third strongest	Mod Settings: dropdown choices
+WLvl-Val-titleChoice-Weakest	Weakest	Mod Settings: dropdown choices
+WLvl-Val-titleChoice-Newest	Most recently earned	Mod Settings: dropdown choices

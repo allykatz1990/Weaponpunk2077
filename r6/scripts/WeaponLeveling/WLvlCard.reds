@@ -149,7 +149,7 @@ public abstract class WLvlCard {
     let title = sys.ShownTitleName(item);
     let nameLine = WLvlSystem.ModelName(item);
     if NotEquals(title, "") {
-      nameLine = nameLine + " \"" + title + "\"";
+      nameLine = nameLine + " " + WLvlF("WLvl-TitleQuote", title);
     }
     let nameSize = 44;
     if StrLen(nameLine) > 30 {
@@ -198,10 +198,10 @@ public abstract class WLvlCard {
 
     WLvlCard.AddText(root, s, 30.0, 12.0, nameLine, nameSize, n"Semi-Bold", white);
 
-    let line = "LEVEL " + IntToString(level);
+    let line = WLvlF("WLvl-Card-Level", IntToString(level));
     let bonus = sys.DamageBonusPercent(level);
     if bonus > 0.0 {
-      line = line + "    +" + FloatToStringPrec(bonus, 1) + "% damage";
+      line = line + "    " + WLvlF("WLvl-Card-Damage", FloatToStringPrec(bonus, 1));
     }
     WLvlCard.AddText(root, s, 30.0, 70.0, line, 36, n"Medium", yellow);
 
@@ -232,15 +232,15 @@ public abstract class WLvlCard {
     if fill > 0.0 {
       WLvlCard.AddRect(root, s, 30.0, 124.0, barW * fill, 10.0, yellow);
     }
-    WLvlCard.AddText(root, s, 30.0, 142.0, WLvlCard.Commas(xp) + " / " + WLvlCard.Commas(cost) + " XP", 30, n"Medium", grey);
+    WLvlCard.AddText(root, s, 30.0, 142.0, WLvlF2("WLvl-Card-XP", WLvlCard.Commas(xp), WLvlCard.Commas(cost)), 30, n"Medium", grey);
 
     let y = 186.0;
     if NotEquals(title, "") {
-      WLvlCard.AddText(root, s, 30.0, y, "\"" + title + "\"", 30, n"Semi-Bold", yellow);
+      WLvlCard.AddText(root, s, 30.0, y, WLvlF("WLvl-TitleQuote", title), 30, n"Semi-Bold", yellow);
       y += 40.0;
     }
     if boost > 0 {
-      WLvlCard.AddText(root, s, 30.0, y, "XP BOOST +" + IntToString(boost) + "%    " + WLvlCard.Commas(sys.BoostKillsLeft()) + " kills left", 30, n"Medium", white);
+      WLvlCard.AddText(root, s, 30.0, y, WLvlF2("WLvl-Card-Boost", IntToString(boost), WLvlCard.Commas(sys.BoostKillsLeft())), 30, n"Medium", white);
       y += 40.0;
     }
     if NotEquals(notice, "") {

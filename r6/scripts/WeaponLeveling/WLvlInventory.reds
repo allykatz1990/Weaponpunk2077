@@ -53,7 +53,7 @@ public abstract class WLvlTooltip {
       return;
     }
     let name = inkTextRef.GetText(nameText);
-    let quoted = "\"" + title + "\"";
+    let quoted = WLvlF("WLvl-TitleQuote", title);
     if !StrContains(name, quoted) {
       inkTextRef.SetText(nameText, name + " " + quoted);
     }
@@ -66,11 +66,11 @@ public abstract class WLvlTooltip {
     }
     sys.Settle(item);
     let level = sys.LevelOf(item);
-    let text = "\nLVL " + IntToString(level) + "   " + WLvlCard.Commas(sys.XPOf(item)) + " / " + WLvlCard.Commas(WLvlSystem.CostOf(level)) + " XP";
+    let text = "\n" + WLvlF3("WLvl-Tip-Level", IntToString(level), WLvlCard.Commas(sys.XPOf(item)), WLvlCard.Commas(WLvlSystem.CostOf(level)));
     let perk = sys.SpentPerk(item);
     let attr = sys.SpentAttribute(item);
     if perk > 0 || attr > 0 {
-      text = text + "\n(" + WLvlCard.Commas(perk) + " perk, " + WLvlCard.Commas(attr) + " attribute pts)";
+      text = text + "\n" + WLvlF2("WLvl-Tip-Spent", WLvlCard.Commas(perk), WLvlCard.Commas(attr));
     }
     return text;
   }

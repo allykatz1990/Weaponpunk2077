@@ -854,8 +854,8 @@ public class WLvlSystem extends ScriptableSystem {
     this.Log(WLvlSystem.ModelName(p.item) + ": +" + IntToString(xp) + " XP, level " + IntToString(this.LevelOf(p.item))
       + ", " + IntToString(this.XPOf(p.item)) + " / " + IntToString(WLvlSystem.CostOf(this.LevelOf(p.item))) + " [" + p.how + "]");
     if gained > 0 {
-      WLvlCard.Show(game, this, p.item, "LEVEL UP");
-      this.Notify(WLvlSystem.ModelName(p.item) + " reached weapon level " + IntToString(this.LevelOf(p.item)));
+      WLvlCard.Show(game, this, p.item, WLvlT("WLvl-Card-LevelUp"));
+      this.Notify(WLvlF2("WLvl-Msg-ReachedLevel", WLvlSystem.ModelName(p.item), IntToString(this.LevelOf(p.item))));
     }
     this.OnTitleKill(game, p);
     this.OnFeatKill(game, p);
@@ -1727,7 +1727,7 @@ public class WLvlSystem extends ScriptableSystem {
     if Equals(name, "") {
       return "";
     }
-    return "\n\"" + name + "\"";
+    return "\n" + WLvlF("WLvl-TitleQuote", name);
   }
 
   // Tooltip lines: the gun's other titles, the feat bonuses and trophy notes, and the sell warning.
@@ -1762,12 +1762,12 @@ public class WLvlSystem extends ScriptableSystem {
     }
     let text = "";
     if NotEquals(others, "") {
-      text = "\nAlso: " + others;
+      text = "\n" + WLvlF("WLvl-Tip-Also", others);
     }
     if Equals(this.HandOf(item), "left") {
-      notes = notes + "\nIn the left hand: feat bonuses are off";
+      notes = notes + "\n" + WLvlT("WLvl-Tip-LeftHandFeats");
     }
-    return text + notes + "\nTitles are lost if sold or dismantled.";
+    return text + notes + "\n" + WLvlT("WLvl-Tip-LostOnSale");
   }
 
   // Extra damage from all of the gun's titles against what it just hit.
@@ -1825,16 +1825,16 @@ public class WLvlSystem extends ScriptableSystem {
     }
     if code >= 100 && code < 200 {
       let f = (code - 100) / 3;
-      return "+" + FloatToStringPrec(WLvlTitles.FactionBonus(f, this.FactionKills(i, f)), 0) + "% damage against " + WLvlTitles.FactionName(f);
+      return WLvlF2("WLvl-Effect-Faction", FloatToStringPrec(WLvlTitles.FactionBonus(f, this.FactionKills(i, f)), 0), WLvlTitles.FactionName(f));
     }
     if WLvlTitles.Family(code) == 200 {
-      return "+" + FloatToStringPrec(WLvlTitles.CarmaBonus(this.m_tVehicles[i]), 0) + "% damage to vehicles, mechs and drones";
+      return WLvlF("WLvl-Effect-Carma", FloatToStringPrec(WLvlTitles.CarmaBonus(this.m_tVehicles[i]), 0));
     }
     if WLvlTitles.Family(code) == 210 {
-      return "+" + FloatToStringPrec(WLvlTitles.PsychoBonus(this.m_tPsychos[i]), 0) + "% damage to cyberpsychos and MaxTac";
+      return WLvlF("WLvl-Effect-Psycho", FloatToStringPrec(WLvlTitles.PsychoBonus(this.m_tPsychos[i]), 0));
     }
     if WLvlTitles.Family(code) == 220 {
-      return "+" + FloatToStringPrec(WLvlTitles.KarenBonus(this.m_tKaren[i]), 0) + "% damage against anyone who hurt you first";
+      return WLvlF("WLvl-Effect-Karen", FloatToStringPrec(WLvlTitles.KarenBonus(this.m_tKaren[i]), 0));
     }
     if code >= 230 && code < 230 + WLvlTitles.FeatCount() {
       return WLvlTitles.FeatNote(code - 230);
@@ -1865,9 +1865,9 @@ public class WLvlSystem extends ScriptableSystem {
       j += 1;
     }
     if Equals(this.HandOf(item), "left") {
-      ArrayPush(out, "In the left hand: title bonuses are off");
+      ArrayPush(out, WLvlT("WLvl-Tip-LeftHandTitles"));
     }
-    ArrayPush(out, "Titles are lost if sold or dismantled.");
+    ArrayPush(out, WLvlT("WLvl-Tip-LostOnSale"));
     return out;
   }
 
@@ -1883,7 +1883,7 @@ public class WLvlSystem extends ScriptableSystem {
     this.EnsureIconic(item);
     this.m_tShown[i] = code;   // remembered for "Most recently earned"
     this.Log("title earned: " + WLvlTitles.Name(code) + " on " + WLvlSystem.ModelName(item));
-    WLvlCard.ShowEx(game, this, item, "NEW TITLE: \"" + WLvlTitles.Name(code) + "\"", note);
+    WLvlCard.ShowEx(game, this, item, WLvlF("WLvl-Card-NewTitle", WLvlTitles.Name(code)), note);
   }
 
   private func OnTitleKill(game: GameInstance, p: ref<WLvlPending>) -> Void {
@@ -1968,8 +1968,8 @@ public class WLvlSystem extends ScriptableSystem {
       let gained = this.AddXP(p.item, xp);
       this.Log(WLvlSystem.ModelName(p.item) + ": +" + IntToString(xp) + " XP for a cyberpsycho taken alive");
       if gained > 0 {
-        WLvlCard.Show(game, this, p.item, "LEVEL UP");
-        this.Notify(WLvlSystem.ModelName(p.item) + " reached weapon level " + IntToString(this.LevelOf(p.item)));
+        WLvlCard.Show(game, this, p.item, WLvlT("WLvl-Card-LevelUp"));
+        this.Notify(WLvlF2("WLvl-Msg-ReachedLevel", WLvlSystem.ModelName(p.item), IntToString(this.LevelOf(p.item))));
       }
     }
     let i = this.TitleIndexOrCreate(p.item);
@@ -1996,7 +1996,7 @@ public class WLvlSystem extends ScriptableSystem {
     }
     let next = earned[(j + 1) % ArraySize(earned)];
     this.m_tShown[i] = next;
-    return "Now showing \"" + WLvlTitles.Name(next) + "\"";
+    return WLvlF("WLvl-Card-NowShowing", WLvlTitles.Name(next));
   }
 
   // A titled gun with the same weapon record (model) as this item, if there is one.
@@ -2205,23 +2205,23 @@ public class WLvlSystem extends ScriptableSystem {
   // The help line under the spend menu, worded for whichever input was used last.
   private func HintChange() -> String {
     if this.m_usingPad {
-      return "Tap to change, hold to use";
+      return WLvlT("WLvl-Hint-ChangePad");
     }
-    return "Next option to change, Confirm to use";
+    return WLvlT("WLvl-Hint-ChangeKeys");
   }
 
   private func HintFirst() -> String {
     if this.m_usingPad {
-      return "Hold again to use, tap to change";
+      return WLvlT("WLvl-Hint-FirstPad");
     }
-    return "Confirm again to use, Next option to change";
+    return WLvlT("WLvl-Hint-FirstKeys");
   }
 
   private func HintSure() -> String {
     if this.m_usingPad {
-      return "Are you sure? Hold again to confirm";
+      return WLvlT("WLvl-Hint-SurePad");
     }
-    return "Are you sure? Press Confirm again";
+    return WLvlT("WLvl-Hint-SureKeys");
   }
 
   private func MenuIsLive(game: GameInstance) -> Bool {
@@ -2268,19 +2268,19 @@ public class WLvlSystem extends ScriptableSystem {
     let kind = WLvlSystem.MenuKind(index);
     let amount = WLvlSystem.MenuAmount(index);
     if kind == 2 {
-      return "Relic point  (+" + IntToString(this.Config().relicBoostPercent) + "% kill XP, " + IntToString(this.Config().relicBoostKills) + " kills)";
+      return WLvlF2("WLvl-Menu-Relic", IntToString(this.Config().relicBoostPercent), IntToString(this.Config().relicBoostKills));
     }
     if kind == 3 {
-      return "Refund this weapon's points";
+      return WLvlT("WLvl-Menu-Refund");
     }
     if kind == 4 {
-      return "Change the shown title";
+      return WLvlT("WLvl-Menu-Title");
     }
-    let name = "Perk points";
+    let gain = WLvlCard.Commas(amount * this.PointXP(kind));
     if kind == 1 {
-      name = "Attribute points";
+      return WLvlF2("WLvl-Menu-Attr", IntToString(amount), gain);
     }
-    return name + " x" + IntToString(amount) + "  (+" + WLvlCard.Commas(amount * this.PointXP(kind)) + " XP)";
+    return WLvlF2("WLvl-Menu-Perk", IntToString(amount), gain);
   }
 
   // "Next option": the first press shows the current option, later presses step to the next one.
@@ -2389,12 +2389,18 @@ public class WLvlSystem extends ScriptableSystem {
   private func Spend(game: GameInstance, item: ItemID, kind: Int32, wanted: Int32) -> String {
     let data = PlayerDevelopmentSystem.GetData(GetPlayer(game));
     if !IsDefined(data) {
-      return "Could not read your points";
+      return WLvlT("WLvl-Msg-NoRead");
     }
     let type = WLvlSystem.PointType(kind);
     let have = data.GetDevPoints(type);
     if have <= 0 {
-      return "No " + WLvlSystem.PointName(kind, 2) + " to spend";
+      if kind == 0 {
+        return WLvlT("WLvl-Msg-NoPerk");
+      }
+      if kind == 1 {
+        return WLvlT("WLvl-Msg-NoAttr");
+      }
+      return WLvlT("WLvl-Msg-NoRelic");
     }
     let amount = wanted;
     if amount > have {
@@ -2402,11 +2408,11 @@ public class WLvlSystem extends ScriptableSystem {
     }
     // the points come out of the unspent pool; the mod keeps its own count so they can be refunded
     data.AddDevelopmentPoints(-amount, type);
-    let left = WLvlCard.Commas(have - amount) + " left";
+    let left = WLvlF("WLvl-Msg-Left", WLvlCard.Commas(have - amount));
     if kind == 2 {
       this.AddBoost();
       this.Log("spent 1 relic point: boost +" + IntToString(this.BoostPercent()) + "% for " + IntToString(this.m_boostKills) + " kills");
-      return "XP boost bought  (" + left + ")";
+      return WLvlF("WLvl-Msg-BoostBought", left);
     }
     let xp = amount * this.PointXP(kind);
     let gained = this.AddXP(item, xp);
@@ -2422,9 +2428,9 @@ public class WLvlSystem extends ScriptableSystem {
     }
     this.Log(WLvlSystem.ModelName(item) + ": spent " + IntToString(amount) + " " + WLvlSystem.PointName(kind, amount) + " for +" + IntToString(xp)
       + " XP, level " + IntToString(this.LevelOf(item)));
-    let result = "+" + WLvlCard.Commas(xp) + " XP  (" + left + ")";
+    let result = WLvlF2("WLvl-Msg-XPGained", WLvlCard.Commas(xp), left);
     if gained > 0 {
-      result = "LEVEL UP   " + result;
+      result = WLvlF("WLvl-Msg-LevelUpPrefix", result);
     }
     return result;
   }
@@ -2455,11 +2461,11 @@ public class WLvlSystem extends ScriptableSystem {
     let i = this.IndexOf(item);
     this.PadSpent();
     if i < 0 || (this.m_spentPerk[i] <= 0 && this.m_spentAttr[i] <= 0) {
-      return "No points have been spent on this weapon";
+      return WLvlT("WLvl-Msg-NothingSpent");
     }
     let data = PlayerDevelopmentSystem.GetData(GetPlayer(game));
     if !IsDefined(data) {
-      return "Could not read your points";
+      return WLvlT("WLvl-Msg-NoRead");
     }
     let perk = this.m_spentPerk[i];
     let attr = this.m_spentAttr[i];
@@ -2481,7 +2487,7 @@ public class WLvlSystem extends ScriptableSystem {
     this.Log(WLvlSystem.ModelName(item) + ": refunded " + IntToString(perk) + " perk and " + IntToString(attr) + " attribute points, removed "
       + IntToString(xp) + " XP, now level " + IntToString(this.m_levels[i]));
     this.RefreshLevelStats(item);
-    return "Refunded " + WLvlCard.Commas(perk) + " perk, " + WLvlCard.Commas(attr) + " attribute points";
+    return WLvlF2("WLvl-Msg-Refunded", WLvlCard.Commas(perk), WLvlCard.Commas(attr));
   }
 
   // Points spent on a weapon's model, for the tooltip.

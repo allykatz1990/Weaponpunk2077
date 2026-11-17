@@ -67,22 +67,22 @@ public abstract class WLvlTitles {
 
   public static func FactionName(f: Int32) -> String {
     switch f {
-      case 0: return "Arasaka";
-      case 1: return "the Tyger Claws";
-      case 2: return "Maelstrom";
-      case 3: return "the Scavengers";
-      case 4: return "the Voodoo Boys";
-      case 5: return "the 6th Street";
-      case 6: return "the Valentinos";
-      case 7: return "the Animals";
-      case 8: return "Militech";
-      case 9: return "the Barghest";
-      case 10: return "the Wraiths";
-      case 11: return "NUSA and the FIA";
-      case 12: return "the NCPD";
-      case 13: return "MaxTac";
-      case 14: return "NetWatch";
-      case 15: return "Kang Tao";
+      case 0: return WLvlT("WLvl-Faction-0");
+      case 1: return WLvlT("WLvl-Faction-1");
+      case 2: return WLvlT("WLvl-Faction-2");
+      case 3: return WLvlT("WLvl-Faction-3");
+      case 4: return WLvlT("WLvl-Faction-4");
+      case 5: return WLvlT("WLvl-Faction-5");
+      case 6: return WLvlT("WLvl-Faction-6");
+      case 7: return WLvlT("WLvl-Faction-7");
+      case 8: return WLvlT("WLvl-Faction-8");
+      case 9: return WLvlT("WLvl-Faction-9");
+      case 10: return WLvlT("WLvl-Faction-10");
+      case 11: return WLvlT("WLvl-Faction-11");
+      case 12: return WLvlT("WLvl-Faction-12");
+      case 13: return WLvlT("WLvl-Faction-13");
+      case 14: return WLvlT("WLvl-Faction-14");
+      case 15: return WLvlT("WLvl-Faction-15");
     }
     return "";
   }
@@ -140,22 +140,22 @@ public abstract class WLvlTitles {
 
   public static func FactionTitle(f: Int32, tier: Int32) -> String {
     switch f {
-      case 0: return WLvlTitles.Pick(tier, "Suit Piercer", "Saka Wrecker", "Tower Toppler");
-      case 1: return WLvlTitles.Pick(tier, "Street Sweeper", "Claw Clipper", "Neon Requiem");
-      case 2: return WLvlTitles.Pick(tier, "Chrome Crusher", "Borg Shredder", "Rust Maker");
-      case 3: return WLvlTitles.Pick(tier, "Vulture Killer", "Harvester Hunter", "Last Harvest");
-      case 4: return WLvlTitles.Pick(tier, "Proxy Piercer", "Daemon Slayer", "Chapel Burner");
-      case 5: return WLvlTitles.Pick(tier, "Flag Burner", "Militia Mauler", "Patriot's End");
-      case 6: return WLvlTitles.Pick(tier, "Halo Breaker", "Altar Stainer", "Deicide");
-      case 7: return WLvlTitles.Pick(tier, "Juice Drainer", "Behemoth Breaker", "Apex Extinction");
-      case 8: return WLvlTitles.Pick(tier, "Flak Shredder", "Convoy Crusher", "The General's Grave");
-      case 9: return WLvlTitles.Pick(tier, "Hound Hunter", "Pack Breaker", "Dogtown's Reckoning");
-      case 10: return WLvlTitles.Pick(tier, "Raffen Reaper", "Shiv Snapper", "Dust to Dust");
-      case 11: return WLvlTitles.Pick(tier, "Spook Hunter", "Agency Eraser", "State of Disunion");
-      case 12: return WLvlTitles.Pick(tier, "Siren Silencer", "Badge Breaker", "Precinct Purger");
-      case 13: return WLvlTitles.Pick(tier, "Mantis Clipper", "Squad Wiper", "Uncontainable");
-      case 14: return WLvlTitles.Pick(tier, "Trace Severer", "Watcher Killer", "The Blind Spot");
-      case 15: return WLvlTitles.Pick(tier, "Smart Jammer", "Dragon Slayer", "Kang Tao's Collapse");
+      case 0: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-0-1"), WLvlT("WLvl-FactionTitle-0-2"), WLvlT("WLvl-FactionTitle-0-3"));
+      case 1: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-1-1"), WLvlT("WLvl-FactionTitle-1-2"), WLvlT("WLvl-FactionTitle-1-3"));
+      case 2: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-2-1"), WLvlT("WLvl-FactionTitle-2-2"), WLvlT("WLvl-FactionTitle-2-3"));
+      case 3: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-3-1"), WLvlT("WLvl-FactionTitle-3-2"), WLvlT("WLvl-FactionTitle-3-3"));
+      case 4: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-4-1"), WLvlT("WLvl-FactionTitle-4-2"), WLvlT("WLvl-FactionTitle-4-3"));
+      case 5: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-5-1"), WLvlT("WLvl-FactionTitle-5-2"), WLvlT("WLvl-FactionTitle-5-3"));
+      case 6: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-6-1"), WLvlT("WLvl-FactionTitle-6-2"), WLvlT("WLvl-FactionTitle-6-3"));
+      case 7: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-7-1"), WLvlT("WLvl-FactionTitle-7-2"), WLvlT("WLvl-FactionTitle-7-3"));
+      case 8: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-8-1"), WLvlT("WLvl-FactionTitle-8-2"), WLvlT("WLvl-FactionTitle-8-3"));
+      case 9: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-9-1"), WLvlT("WLvl-FactionTitle-9-2"), WLvlT("WLvl-FactionTitle-9-3"));
+      case 10: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-10-1"), WLvlT("WLvl-FactionTitle-10-2"), WLvlT("WLvl-FactionTitle-10-3"));
+      case 11: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-11-1"), WLvlT("WLvl-FactionTitle-11-2"), WLvlT("WLvl-FactionTitle-11-3"));
+      case 12: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-12-1"), WLvlT("WLvl-FactionTitle-12-2"), WLvlT("WLvl-FactionTitle-12-3"));
+      case 13: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-13-1"), WLvlT("WLvl-FactionTitle-13-2"), WLvlT("WLvl-FactionTitle-13-3"));
+      case 14: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-14-1"), WLvlT("WLvl-FactionTitle-14-2"), WLvlT("WLvl-FactionTitle-14-3"));
+      case 15: return WLvlTitles.Pick(tier, WLvlT("WLvl-FactionTitle-15-1"), WLvlT("WLvl-FactionTitle-15-2"), WLvlT("WLvl-FactionTitle-15-3"));
     }
     return "";
   }
@@ -240,30 +240,30 @@ public abstract class WLvlTitles {
 
   public static func FeatTitle(k: Int32) -> String {
     switch k {
-      case 0: return "Lead Storm";
-      case 1: return "Reaper's Tempo";
-      case 2: return "Bullet Hell Sovereign";
-      case 3: return "Doom Slayer";
-      case 4: return "Smart Bomb";
-      case 5: return "Untouchable";
-      case 6: return "Ghost Protocol";
-      case 7: return "Tactical Espionage";
-      case 8: return "Snake Eater";
+      case 0: return WLvlT("WLvl-Feat-0");
+      case 1: return WLvlT("WLvl-Feat-1");
+      case 2: return WLvlT("WLvl-Feat-2");
+      case 3: return WLvlT("WLvl-Feat-3");
+      case 4: return WLvlT("WLvl-Feat-4");
+      case 5: return WLvlT("WLvl-Feat-5");
+      case 6: return WLvlT("WLvl-Feat-6");
+      case 7: return WLvlT("WLvl-Feat-7");
+      case 8: return WLvlT("WLvl-Feat-8");
     }
     return "";
   }
 
   public static func FeatNote(k: Int32) -> String {
     switch k {
-      case 0: return "Berserker: 5 kills in 5 s, +5% damage per stack (3 max)";
-      case 1: return "Berserker: 5 kills in 5 s, +5% damage per stack (4 max)";
-      case 2: return "Berserker: 5 kills in 5 s, +5% damage per stack (5 max)";
-      case 3: return "Kills heal 2% health";
-      case 4: return "+25% explosion damage";
-      case 5: return "10% less damage taken";
-      case 6: return "+25% damage to unaware enemies";
-      case 7: return "+50% weapon XP from stealth kills";
-      case 8: return "Healing items heal 5% more health";
+      case 0: return WLvlT("WLvl-FeatNote-0");
+      case 1: return WLvlT("WLvl-FeatNote-1");
+      case 2: return WLvlT("WLvl-FeatNote-2");
+      case 3: return WLvlT("WLvl-FeatNote-3");
+      case 4: return WLvlT("WLvl-FeatNote-4");
+      case 5: return WLvlT("WLvl-FeatNote-5");
+      case 6: return WLvlT("WLvl-FeatNote-6");
+      case 7: return WLvlT("WLvl-FeatNote-7");
+      case 8: return WLvlT("WLvl-FeatNote-8");
     }
     return "";
   }
@@ -312,23 +312,23 @@ public abstract class WLvlTitles {
 
   public static func TrophyTitle(k: Int32) -> String {
     switch k {
-      case 0: return "Smashed";
-      case 1: return "Kingslayer";
-      case 2: return "Honor's Mercy";
-      case 3: return "Maelstrom Interrupted";
-      case 4: return "Evelyn's Reckoning";
-      case 5: return "Cryptid Hunter";
-      case 6: return "The Handler's Price";
-      case 7: return "Sins of Kabuki";
-      case 8: return "The Trauma Weavers";
-      case 9: return "Loa's Last Rites";
-      case 10: return "Firewall Breach";
-      case 11: return "Dumb Luck Ran Out";
-      case 12: return "Wraith Exorcist";
-      case 13: return "Clouded Judgment";
-      case 14: return "River's Justice";
-      case 15: return "Myth Buster";
-      case 16: return "Gatekeeper's Fall";
+      case 0: return WLvlT("WLvl-Trophy-0");
+      case 1: return WLvlT("WLvl-Trophy-1");
+      case 2: return WLvlT("WLvl-Trophy-2");
+      case 3: return WLvlT("WLvl-Trophy-3");
+      case 4: return WLvlT("WLvl-Trophy-4");
+      case 5: return WLvlT("WLvl-Trophy-5");
+      case 6: return WLvlT("WLvl-Trophy-6");
+      case 7: return WLvlT("WLvl-Trophy-7");
+      case 8: return WLvlT("WLvl-Trophy-8");
+      case 9: return WLvlT("WLvl-Trophy-9");
+      case 10: return WLvlT("WLvl-Trophy-10");
+      case 11: return WLvlT("WLvl-Trophy-11");
+      case 12: return WLvlT("WLvl-Trophy-12");
+      case 13: return WLvlT("WLvl-Trophy-13");
+      case 14: return WLvlT("WLvl-Trophy-14");
+      case 15: return WLvlT("WLvl-Trophy-15");
+      case 16: return WLvlT("WLvl-Trophy-16");
     }
     return "";
   }
@@ -336,23 +336,23 @@ public abstract class WLvlTitles {
   // The tooltip note under a trophy title.
   public static func TrophyNote(k: Int32) -> String {
     switch k {
-      case 0: return "Killed Adam Smasher";
-      case 1: return "Killed Kurt Hansen";
-      case 2: return "Killed Sandayu Oda";
-      case 3: return "Killed Royce";
-      case 4: return "Killed Woodman";
-      case 5: return "Killed Sasquatch";
-      case 6: return "Killed Solomon Reed";
-      case 7: return "Killed Jotaro Shobo";
-      case 8: return "Killed a Persson brother";
-      case 9: return "Killed Placide";
-      case 10: return "Killed Bryce Mosley";
-      case 11: return "Killed Dum Dum";
-      case 12: return "Killed Nash";
-      case 13: return "Killed Fingers";
-      case 14: return "Killed Anthony Harris";
-      case 15: return "Destroyed the Chimera";
-      case 16: return "Destroyed Cerberus";
+      case 0: return WLvlT("WLvl-TrophyNote-0");
+      case 1: return WLvlT("WLvl-TrophyNote-1");
+      case 2: return WLvlT("WLvl-TrophyNote-2");
+      case 3: return WLvlT("WLvl-TrophyNote-3");
+      case 4: return WLvlT("WLvl-TrophyNote-4");
+      case 5: return WLvlT("WLvl-TrophyNote-5");
+      case 6: return WLvlT("WLvl-TrophyNote-6");
+      case 7: return WLvlT("WLvl-TrophyNote-7");
+      case 8: return WLvlT("WLvl-TrophyNote-8");
+      case 9: return WLvlT("WLvl-TrophyNote-9");
+      case 10: return WLvlT("WLvl-TrophyNote-10");
+      case 11: return WLvlT("WLvl-TrophyNote-11");
+      case 12: return WLvlT("WLvl-TrophyNote-12");
+      case 13: return WLvlT("WLvl-TrophyNote-13");
+      case 14: return WLvlT("WLvl-TrophyNote-14");
+      case 15: return WLvlT("WLvl-TrophyNote-15");
+      case 16: return WLvlT("WLvl-TrophyNote-16");
     }
     return "";
   }
@@ -367,9 +367,9 @@ public abstract class WLvlTitles {
 
   public static func SecretNote(b: Int32) -> String {
     if b == 0 {
-      return "+50% damage against Arasaka. Smasher has a weak spot, once.";
+      return WLvlT("WLvl-SecretNote-0");
     }
-    return "Kills in one shot. 3-round magazine, slower reload and fire rate.";
+    return WLvlT("WLvl-SecretNote-1");
   }
 
   // Codes in the same family replace each other (a higher faction tier replaces the lower one).
@@ -442,22 +442,22 @@ public abstract class WLvlTitles {
       return WLvlTitles.FactionTitle((code - 100) / 3, (code - 100) % 3 + 1);
     }
     if code >= 200 && code < 210 {
-      return WLvlTitles.Pick(code - 199, "Carmageddon I", "Carmageddon II", "Carmageddon III");
+      return WLvlTitles.Pick(code - 199, WLvlT("WLvl-Carma-1"), WLvlT("WLvl-Carma-2"), WLvlT("WLvl-Carma-3"));
     }
     if code >= 210 && code < 220 {
-      return WLvlTitles.Pick(code - 209, "Psychosquad Leader I", "Psychosquad Leader II", "Psychosquad Leader III");
+      return WLvlTitles.Pick(code - 209, WLvlT("WLvl-Psycho-1"), WLvlT("WLvl-Psycho-2"), WLvlT("WLvl-Psycho-3"));
     }
     if code >= 220 && code < 230 {
-      return WLvlTitles.Pick(code - 219, "Karen Slayer", "Karen Slayer II", "Karen Slayer III");
+      return WLvlTitles.Pick(code - 219, WLvlT("WLvl-Karen-1"), WLvlT("WLvl-Karen-2"), WLvlT("WLvl-Karen-3"));
     }
     if code >= 230 && code < 230 + WLvlTitles.FeatCount() {
       return WLvlTitles.FeatTitle(code - 230);
     }
     if code == 250 {
-      return "The Board's Worst Nightmare";
+      return WLvlT("WLvl-Secret-0");
     }
     if code == 251 {
-      return "The Solo's Last Laugh";
+      return WLvlT("WLvl-Secret-1");
     }
     if code >= 300 && code < 300 + WLvlTitles.TrophyCount() {
       return WLvlTitles.TrophyTitle(code - 300);
@@ -481,14 +481,20 @@ public func WLvlNameWithTitle(name: String, item: ItemID) -> String {
   if Equals(title, "") {
     return name;
   }
-  let quoted = "\"" + title + "\"";
+  let quoted = WLvlF("WLvl-TitleQuote", title);
   if StrContains(name, quoted) {
     return name;
   }
-  // a different title from earlier may still be attached: keep only the part before it
-  let cut = StrFindFirst(name, " \"");
-  if cut > 0 {
-    name = StrLeft(name, cut);
+  // a different title of this gun may still be attached from earlier: take only that off.
+  // (Named weapons such as Patch "The Enforcer"'s Carnage keep their own quotes.)
+  let earned = sys.EarnedTitles(item);
+  let j = 0;
+  while j < ArraySize(earned) {
+    let old = " " + WLvlF("WLvl-TitleQuote", WLvlTitles.Name(earned[j]));
+    if StrEndsWith(name, old) {
+      name = StrLeft(name, StrLen(name) - StrLen(old));
+    }
+    j += 1;
   }
   return name + " " + quoted;
 }
@@ -549,7 +555,7 @@ protected func UpdateItemName() -> Void {
   if Equals(title, "") {
     return;
   }
-  let quoted = "\"" + title + "\"";
+  let quoted = WLvlF("WLvl-TitleQuote", title);
   let name = inkTextRef.GetText(this.m_itemName);
   if !StrContains(name, quoted) {
     inkTextRef.SetText(this.m_itemName, name + " " + quoted);

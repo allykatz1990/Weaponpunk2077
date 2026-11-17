@@ -8,7 +8,7 @@ A weapon progression mod for Cyberpunk 2077 2.5 with Phantom Liberty. Your weapo
 
 This mod also includes a hidden system. No spoilers here: play and discover it. If you can't wait, `SPOILERS.md` explains everything.
 
-**Status: public beta test build (November 15, 2026).** Back up your saves.
+**Status: public beta, v0.6.** Back up your saves.
 
 ## Features
 
@@ -21,7 +21,8 @@ This mod also includes a hidden system. No spoilers here: play and discover it. 
 - **Better Leveling support.** With Better Leveling installed, point values scale automatically to its level cap and points per level.
 - **Weapon card.** Shows the weapon's level, damage bonus and XP when you draw it. Its side, its height on screen (0 bottom to 100 top) and compact mode are settings.
 - **Inventory tooltip line** with the weapon's level and XP.
-- **Everything is configurable** in Mod Settings.
+- **Everything is configurable** in Mod Settings, and every setting explains what it does.
+- **Translatable.** All text, including every setting, can be translated with one add-on file. See [Translations](#translations).
 
 ## Requirements
 
@@ -55,6 +56,15 @@ The first press only opens the menu, so a stray press never spends anything. Eve
 ## Removing
 
 Use the refund option on any weapon you spent points on, then delete `r6\scripts\WeaponLeveling\` and `r6\tweaks\WeaponLeveling\`. Saves still load.
+
+## Translations
+
+All of the mod's text can be translated without touching its code. The translation kit is in the
+[`translations`](translations/) folder here, and it's also an optional download on Nexus. It has a
+template file, the same strings as a spreadsheet, and a step-by-step guide (`TRANSLATING.md`).
+
+A translation is one `.reds` file that players drop into `r6\scripts\WeaponpunkLang\`. It loads
+automatically when the game's language matches. Anything it doesn't translate shows in English.
 
 ## Reporting bugs
 
