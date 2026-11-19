@@ -158,10 +158,11 @@ public abstract class WLvlCard {
     rightCard.SetName(n"WLvlCard");
     leftCard.SetName(n"WLvlCard2");
     // The column is placed as one block, so the "Card height" setting moves both cards together
-    // and the whole stack always stays on screen. Heights are already scaled (Build applies s).
+    // and the whole stack always stays on screen.
+    // Heights come from UnscaledHeight, NOT from the widgets (see there for why).
     let gap = 16.0 * s;
-    let rightH = rightCard.GetSize().Y;
-    let leftH = leftCard.GetSize().Y;
+    let rightH = WLvlCard.UnscaledHeight(sys, rightNotice, "") * s;
+    let leftH = WLvlCard.UnscaledHeight(sys, leftNotice, "") * s;
     WLvlCard.PlaceInPlay(leftCard, sys.Config(), leftH + gap + rightH, 0.0);
     WLvlCard.PlaceInPlay(rightCard, sys.Config(), leftH + gap + rightH, leftH + gap);
     leftCard.Reparent(win);
@@ -201,7 +202,7 @@ public abstract class WLvlCard {
       root.SetAnchorPoint(0.0, 0.5);
       root.SetMargin(60.0, 0.0, 0.0, 0.0);
     } else {
-      WLvlCard.PlaceInPlay(root, sys.Config(), root.GetSize().Y, 0.0);
+      WLvlCard.PlaceInPlay(root, sys.Config(), WLvlCard.UnscaledHeight(sys, notice, hint) * s, 0.0);
     }
     root.Reparent(win);
     WLvlCard.StartHideTimer(game, sys);
@@ -250,6 +251,31 @@ public abstract class WLvlCard {
     GameInstance.GetDelaySystem(game).DelayCallback(cb, sys.Config().cardSeconds, false);
   }
 
+  // A card's height in unscaled units (multiply by s for screen units). Kept in its own function
+  // so Build and the dual-wield column use exactly the same number.
+  // Why not just ask the built widget (GetSize)? Tested in 0.6.2: a widget that has not been
+  // through the game's layout pass yet reports a height of 0, so both dual-wield cards ended up
+  // in the same spot, overlapping. Always compute the height here instead.
+  // If you add a line to the card in Build or AddDetails, add its height here too.
+  public static func UnscaledHeight(sys: ref<WLvlSystem>, notice: String, hint: String) -> Float {
+    let cfg = sys.Config();
+    let compact = cfg.compactCard && Equals(notice, "") && Equals(hint, "");
+    let h = WLvlCard.Height();
+    if compact {
+      return 122.0;   // name + level line only (compact never has a notice or hint)
+    }
+    if sys.BoostPercent() > 0 {
+      h += 40.0;      // relic XP boost line
+    }
+    if NotEquals(notice, "") {
+      h += 44.0;      // notice line ("LEVEL UP", ...)
+    }
+    if NotEquals(hint, "") {
+      h += 40.0;      // hint line (spend menu)
+    }
+    return h;
+  }
+
   // Builds one card (not yet placed or attached to a window) and returns it, sized to its content.
   // This is the old body of ShowEx, split out in 0.6.2 so the dual-wield column can build two.
   // hand: "" for no hand tag, otherwise the text shown at the right end of the level line.
@@ -262,16 +288,10 @@ public abstract class WLvlCard {
     let cfg = sys.Config();
     let compact = cfg.compactCard && Equals(notice, "") && Equals(hint, "");
     let w = WLvlCard.Width();
-    let h = WLvlCard.Height();
-    if compact {
-      h = 122.0;
-    }
+    let h = WLvlCard.UnscaledHeight(sys, notice, hint);
     let boost = sys.BoostPercent();
     if compact {
       boost = 0;
-    }
-    if boost > 0 {
-      h += 40.0;
     }
     // the shown title goes after the name at the top, in quotes
     let title = sys.ShownTitleName(item);
@@ -284,12 +304,6 @@ public abstract class WLvlCard {
       nameSize = 36;
     }
     title = "";
-    if NotEquals(notice, "") {
-      h += 44.0;
-    }
-    if NotEquals(hint, "") {
-      h += 40.0;
-    }
 
     let root = new inkCanvas();
     root.SetSize(w * s, h * s);

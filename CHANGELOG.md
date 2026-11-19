@@ -32,6 +32,10 @@ why, and where in the code to look.
   widget named `WLvlCard2`, removed by `RemoveFrom` together with `WLvlCard`. Hand lookups:
   `RightHandItem` / `LeftHandItem` in `WLvlSystem.reds`. Setting: `dualCards` in
   `WLvlConfig.reds`.
+- **Gotcha found in testing:** the first version read each card's height from the widget
+  (`GetSize`), which is 0 until the game lays the widget out, so both cards landed in the same
+  spot. Heights now come from `WLvlCard.UnscaledHeight`, used by both `Build` and the placement.
+  Any new line added to the card must be counted there too.
 
 ### Investigated: left-hand kill XP while dual wielding (no bug found)
 - Tested on game 2.5 + Expanded Dual Wielding 3.8: `attackData.GetWeapon()` reports the correct
