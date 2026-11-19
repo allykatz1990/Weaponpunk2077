@@ -2061,23 +2061,6 @@ public class WLvlSystem extends ScriptableSystem {
     }
   }
 
-  // Spend menu: steps the name to the gun's next title. Returns the line for the card.
-  private func CycleShown(item: ItemID) -> String {
-    let i = this.TitleIndex(item);
-    let earned = this.EarnedTitles(item);
-    if i < 0 || ArraySize(earned) == 0 {
-      return "This weapon has no titles yet";
-    }
-    let current = this.ShownTitle(item);
-    let j = 0;
-    while j < ArraySize(earned) && earned[j] != current {
-      j += 1;
-    }
-    let next = earned[(j + 1) % ArraySize(earned)];
-    this.m_tShown[i] = next;
-    return WLvlF("WLvl-Card-NowShowing", WLvlTitles.Name(next));
-  }
-
   // A titled gun with the same weapon record (model) as this item, if there is one.
   public func TitledCopyOf(item: ItemID) -> ItemID {
     let none: ItemID;
@@ -2313,6 +2296,22 @@ public class WLvlSystem extends ScriptableSystem {
     this.m_menuTime = EngineTime.ToFloat(GameInstance.GetEngineTime(game));
   }
 
+  // ---- Spend menu options, in the order "next option" steps through them:
+  //   index 0-2: perk points (x1, x5, x10)        kind 0
+  //   index 3-5: attribute points (x1, x5, x10)   kind 1
+  //   index 6:   relic point -> XP boost          kind 2
+  //   index 7:   refund this weapon's points      kind 3
+  // REMOVED in 0.6.2: index 8, "Change the shown title" (kind 4). It was left over from the
+  // scrapped title-swapping feature: every earned title always works, and which one shows in the
+  // name is chosen in Mod Settings (titleChoice in WLvlConfig.reds, generic labels so the menu
+  // never spoils title names). The old option also overwrote m_tShown, which the "Most recently
+  // earned" setting reads, so leaving it in made that setting show the wrong title.
+  // To add an option: give it an index here, handle it in MenuKind / MenuLabel / MenuConfirm,
+  // and raise MenuCount.
+  private static func MenuCount() -> Int32 {
+    return 8;
+  }
+
   private static func MenuKind(index: Int32) -> Int32 {
     if index < 3 {
       return 0;
@@ -2322,9 +2321,6 @@ public class WLvlSystem extends ScriptableSystem {
     }
     if index == 6 {
       return 2;
-    }
-    if index == 8 {
-      return 4;
     }
     return 3;
   }
@@ -2352,9 +2348,6 @@ public class WLvlSystem extends ScriptableSystem {
     if kind == 3 {
       return WLvlT("WLvl-Menu-Refund");
     }
-    if kind == 4 {
-      return WLvlT("WLvl-Menu-Title");
-    }
     let gain = WLvlCard.Commas(amount * this.PointXP(kind));
     if kind == 1 {
       return WLvlF2("WLvl-Menu-Attr", IntToString(amount), gain);
@@ -2365,11 +2358,7 @@ public class WLvlSystem extends ScriptableSystem {
   // "Next option": the first press shows the current option, later presses step to the next one.
   private func MenuNext(game: GameInstance, item: ItemID) -> Void {
     if this.MenuIsLive(game) {
-      this.m_menuIndex = (this.m_menuIndex + 1) % 9;
-      // the title option only appears on guns that have a title
-      if this.m_menuIndex == 8 && !this.HasTitles(item) {
-        this.m_menuIndex = 0;
-      }
+      this.m_menuIndex = (this.m_menuIndex + 1) % WLvlSystem.MenuCount();
     }
     this.m_menuArmed = false;
     this.MenuTouch(game);
@@ -2395,14 +2384,10 @@ public class WLvlSystem extends ScriptableSystem {
     }
     this.m_menuArmed = false;
     let result = "";
-    if kind == 4 {
-      result = this.CycleShown(item);
+    if kind == 3 {
+      result = this.Refund(game, item);
     } else {
-      if kind == 3 {
-        result = this.Refund(game, item);
-      } else {
-        result = this.Spend(game, item, kind, WLvlSystem.MenuAmount(this.m_menuIndex));
-      }
+      result = this.Spend(game, item, kind, WLvlSystem.MenuAmount(this.m_menuIndex));
     }
     WLvlCard.ShowEx(game, this, item, label, result);
   }

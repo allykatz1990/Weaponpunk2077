@@ -1,7 +1,6 @@
 key	english	notes
 WLvl-Card-LevelUp	LEVEL UP	Weapon card
 WLvl-Card-NewTitle	NEW TITLE: "{0}"	Weapon card
-WLvl-Card-NowShowing	Now showing "{0}"	Weapon card
 WLvl-Card-Level	LEVEL {0}	Weapon card
 WLvl-Card-LeftHand	LEFT HAND	Weapon card
 WLvl-Card-RightHand	RIGHT HAND	Weapon card
@@ -21,7 +20,6 @@ WLvl-Msg-NothingSpent	No points have been spent on this weapon	Messages on the c
 WLvl-Msg-Refunded	Refunded {0} perk, {1} attribute points	Messages on the card when spending or refunding points
 WLvl-Menu-Relic	Relic point  (+{0}% kill XP, {1} kills)	Spend menu options
 WLvl-Menu-Refund	Refund this weapon's points	Spend menu options
-WLvl-Menu-Title	Change the shown title	Spend menu options
 WLvl-Menu-Attr	Attribute points x{0}  (+{1} XP)	Spend menu options
 WLvl-Menu-Perk	Perk points x{0}  (+{1} XP)	Spend menu options
 WLvl-Hint-ChangePad	Tap to change, hold to use	Help line under the spend menu

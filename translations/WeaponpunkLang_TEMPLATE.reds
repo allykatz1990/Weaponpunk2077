@@ -23,7 +23,6 @@ public class WLvlLang_xx_xx extends ModLocalizationPackage {
     // ---- Weapon card
     this.Text("WLvl-Card-LevelUp", "LEVEL UP");
     this.Text("WLvl-Card-NewTitle", "NEW TITLE: \"{0}\"");
-    this.Text("WLvl-Card-NowShowing", "Now showing \"{0}\"");
     this.Text("WLvl-Card-Level", "LEVEL {0}");
     this.Text("WLvl-Card-LeftHand", "LEFT HAND");
     this.Text("WLvl-Card-RightHand", "RIGHT HAND");
@@ -47,7 +46,6 @@ public class WLvlLang_xx_xx extends ModLocalizationPackage {
     // ---- Spend menu options
     this.Text("WLvl-Menu-Relic", "Relic point  (+{0}% kill XP, {1} kills)");
     this.Text("WLvl-Menu-Refund", "Refund this weapon's points");
-    this.Text("WLvl-Menu-Title", "Change the shown title");
     this.Text("WLvl-Menu-Attr", "Attribute points x{0}  (+{1} XP)");
     this.Text("WLvl-Menu-Perk", "Perk points x{0}  (+{1} XP)");
 

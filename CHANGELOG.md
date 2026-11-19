@@ -37,6 +37,15 @@ why, and where in the code to look.
   spot. Heights now come from `WLvlCard.UnscaledHeight`, used by both `Build` and the placement.
   Any new line added to the card must be counted there too.
 
+### Removed: "Change the shown title" from the spend menu
+- **Why:** leftover from the scrapped title-swapping feature. Every earned title always works;
+  which one shows after the gun's name is chosen in Mod Settings → Titles (generic labels, so
+  the menu never spoils title names).
+- **Side effect fixed:** the old option overwrote the record that "Most recently earned" reads,
+  so using it made that setting show the wrong title.
+- **Code:** spend menu in `WLvlSystem.reds` (see the option list above `MenuCount`); removed
+  `CycleShown` and the strings `WLvl-Menu-Title` / `WLvl-Card-NowShowing`.
+
 ### Investigated: left-hand kill XP while dual wielding (no bug found)
 - Tested on game 2.5 + Expanded Dual Wielding 3.8: `attackData.GetWeapon()` reports the correct
   gun for each hand and the left gun earns kill XP. `attackData.GetSource()` is always empty for
