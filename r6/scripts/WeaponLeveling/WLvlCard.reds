@@ -53,9 +53,14 @@ public abstract class WLvlCard {
     if !IsDefined(win) {
       return;
     }
+    // both the main card and the dual-wield left-hand card (see ShowDual)
     let old = win.GetWidgetByPathName(n"WLvlCard");
     if IsDefined(old) {
       win.RemoveChild(old);
+    }
+    let old2 = win.GetWidgetByPathName(n"WLvlCard2");
+    if IsDefined(old2) {
+      win.RemoveChild(old2);
     }
   }
 
@@ -99,38 +104,157 @@ public abstract class WLvlCard {
     return out;
   }
 
-  // notice: an optional extra line at the bottom ("LEVEL UP", ...). "" for none.
+  // ================================================================ showing cards
+  // Two widgets can be on screen at once: "WLvlCard" (the main card) and "WLvlCard2" (the
+  // left-hand card while dual wielding, see ShowDual). Every Show / ShowEx call first removes both,
+  // so there is never a stale card left behind, and one shared hide timer removes both.
+
+  // Draw card / level-up card. notice: an optional extra line at the bottom ("LEVEL UP", ...),
+  // "" for none.
+  // While dual wielding during play (and with the "Both cards when dual wielding" setting on),
+  // this shows BOTH hands' cards stacked instead of one: see ShowDual.
   public static func Show(game: GameInstance, sys: ref<WLvlSystem>, item: ItemID, notice: String) -> Void {
     if !IsDefined(sys) || !sys.Config().showCard {
       return;
     }
+    if !sys.InMenu() && sys.Config().dualCards {
+      let right = sys.RightHandItem();
+      let left = sys.LeftHandItem();
+      // only when the card is about one of the two guns in V's hands (a level-up from an
+      // explosion credited to a holstered gun still gets the plain single card)
+      if ItemID.IsValid(right) && ItemID.IsValid(left) && (item == right || item == left) {
+        WLvlCard.ShowDual(game, sys, right, left, item, notice);
+        return;
+      }
+    }
     WLvlCard.ShowEx(game, sys, item, notice, "");
   }
 
-  // The full version, used by the spend menu: a highlighted line plus a smaller line under it.
-  // Always shown, even with the draw card switched off, since it is the menu's only feedback.
+  // DUAL-WIELD CARDS (0.6.2, requested by the mod author after a player could not see the left
+  // gun's XP; see WLvlSystem.HitWeapon for that investigation).
+  // Shows two cards in one column: the right-hand (main) card where the single card normally sits,
+  // and the left-hand card directly ON TOP of it. Each card carries a "RIGHT HAND" / "LEFT HAND"
+  // tag. `item` is the gun the card was triggered for; only its card gets the `notice` line (so
+  // "LEVEL UP" appears on the gun that actually levelled, not on both).
+  // Never used in menus (there the card is about the one item under the cursor) or by the spend
+  // menu (which works on one weapon at a time and calls ShowEx directly).
+  public static func ShowDual(game: GameInstance, sys: ref<WLvlSystem>, right: ItemID, left: ItemID, item: ItemID, notice: String) -> Void {
+    WLvlCard.RemoveFrom(WLvlCard.Window(false));
+    WLvlCard.RemoveFrom(WLvlCard.Window(true));
+    let win = WLvlCard.Window(false);
+    if !IsDefined(win) {
+      return;
+    }
+    let s = WLvlCard.Scale(sys, false);
+    let rightNotice = "";
+    let leftNotice = "";
+    if item == right {
+      rightNotice = notice;
+    } else {
+      leftNotice = notice;
+    }
+    let rightCard = WLvlCard.Build(sys, right, rightNotice, "", s, WLvlT("WLvl-Card-RightHand"));
+    let leftCard = WLvlCard.Build(sys, left, leftNotice, "", s, WLvlT("WLvl-Card-LeftHand"));
+    rightCard.SetName(n"WLvlCard");
+    leftCard.SetName(n"WLvlCard2");
+    // The column is placed as one block, so the "Card height" setting moves both cards together
+    // and the whole stack always stays on screen. Heights are already scaled (Build applies s).
+    let gap = 16.0 * s;
+    let rightH = rightCard.GetSize().Y;
+    let leftH = leftCard.GetSize().Y;
+    WLvlCard.PlaceInPlay(leftCard, sys.Config(), leftH + gap + rightH, 0.0);
+    WLvlCard.PlaceInPlay(rightCard, sys.Config(), leftH + gap + rightH, leftH + gap);
+    leftCard.Reparent(win);
+    rightCard.Reparent(win);
+    WLvlCard.StartHideTimer(game, sys);
+  }
+
+  // The full single card, used by Show (one gun) and directly by the spend menu and title awards:
+  // a highlighted line plus a smaller line under it. Always shown, even with the draw card switched
+  // off, since it is the spend menu's only feedback. While dual wielding the card still gets a hand
+  // tag, so it's clear which of the two guns it is about.
   public static func ShowEx(game: GameInstance, sys: ref<WLvlSystem>, item: ItemID, notice: String, hint: String) -> Void {
     if !IsDefined(sys) || !ItemID.IsValid(item) {
       return;
     }
     let inMenu = sys.InMenu();
-    // `s` is the card's overall scale. Every size below is written for s = 1.0 and multiplied by s
-    // when drawn (see AddRect / AddText), so changing s resizes the whole card evenly.
-    // It starts from the player's "Card size" setting (cardScale, a percent, clamped here in case
-    // the config was edited by hand), then the card is drawn at 80% of that in menus, where space
-    // is tight. The background is solid (0.95 alpha) so nothing shows through it.
-    let s = Cast<Float>(Max(50, Min(150, sys.Config().cardScale))) / 100.0;
-    let backAlpha = 0.95;
-    if inMenu {
-      s *= 0.8;
-    }
     WLvlCard.RemoveFrom(WLvlCard.Window(false));
     WLvlCard.RemoveFrom(WLvlCard.Window(true));
     let win = WLvlCard.Window(inMenu);
     if !IsDefined(win) {
       return;
     }
+    let hand = "";
+    if !inMenu && ItemID.IsValid(sys.LeftHandItem()) {
+      if item == sys.LeftHandItem() {
+        hand = WLvlT("WLvl-Card-LeftHand");
+      } else if item == sys.RightHandItem() {
+        hand = WLvlT("WLvl-Card-RightHand");
+      }
+    }
+    let s = WLvlCard.Scale(sys, inMenu);
+    let root = WLvlCard.Build(sys, item, notice, hint, s, hand);
+    root.SetName(n"WLvlCard");
+    if inMenu {
+      // left edge, halfway down: a clear spot in both the inventory and the item select screen
+      root.SetAnchor(inkEAnchor.CenterLeft);
+      root.SetAnchorPoint(0.0, 0.5);
+      root.SetMargin(60.0, 0.0, 0.0, 0.0);
+    } else {
+      WLvlCard.PlaceInPlay(root, sys.Config(), root.GetSize().Y, 0.0);
+    }
+    root.Reparent(win);
+    WLvlCard.StartHideTimer(game, sys);
+  }
 
+  // `s`, the card's overall scale. Every size in Build is written for s = 1.0 and multiplied by s
+  // when drawn (see AddRect / AddText), so changing s resizes the whole card evenly.
+  // It starts from the player's "Card size" setting (cardScale, a percent, clamped here in case
+  // the config was edited by hand); menus draw the card at 80% of that, where space is tight.
+  private static func Scale(sys: ref<WLvlSystem>, inMenu: Bool) -> Float {
+    let s = Cast<Float>(Max(50, Min(150, sys.Config().cardScale))) / 100.0;
+    if inMenu {
+      s *= 0.8;
+    }
+    return s;
+  }
+
+  // Places a card during play: left or right edge (cardPosition), at the height set in Mod
+  // Settings (cardHeight: 0 = bottom, 100 = top).
+  // stackH: total height (already scaled) of everything placed as one block: the card's own height
+  //   for a single card, both cards plus the gap for the dual-wield column.
+  // offsetY: how far below the top of that block this card goes (0 for the top card).
+  // The block always stays fully on screen (the game's HUD is laid out on a 2160-pixel-tall
+  // canvas).
+  private static func PlaceInPlay(root: ref<inkCanvas>, cfg: ref<WLvlConfig>, stackH: Float, offsetY: Float) -> Void {
+    let pct = Cast<Float>(Max(0, Min(100, cfg.cardHeight))) / 100.0;
+    let room = MaxF(0.0, 2160.0 - stackH);
+    let top = (1.0 - pct) * room;
+    if cfg.cardPosition == 2 {
+      root.SetAnchor(inkEAnchor.TopRight);
+      root.SetAnchorPoint(1.0, 0.0);
+      root.SetMargin(0.0, top + offsetY, 96.0, 0.0);
+    } else {
+      root.SetAnchor(inkEAnchor.TopLeft);
+      root.SetAnchorPoint(0.0, 0.0);
+      root.SetMargin(96.0, top + offsetY, 0.0, 0.0);
+    }
+  }
+
+  // The hide timer. The token changes with every card shown, so an old timer never removes a
+  // newer card; Hide removes both card widgets.
+  private static func StartHideTimer(game: GameInstance, sys: ref<WLvlSystem>) -> Void {
+    let cb = new WLvlCardHide();
+    cb.sys = sys;
+    cb.token = sys.NextCardToken();
+    GameInstance.GetDelaySystem(game).DelayCallback(cb, sys.Config().cardSeconds, false);
+  }
+
+  // Builds one card (not yet placed or attached to a window) and returns it, sized to its content.
+  // This is the old body of ShowEx, split out in 0.6.2 so the dual-wield column can build two.
+  // hand: "" for no hand tag, otherwise the text shown at the right end of the level line.
+  private static func Build(sys: ref<WLvlSystem>, item: ItemID, notice: String, hint: String, s: Float, hand: String) -> ref<inkCanvas> {
+    let backAlpha = 0.95;   // solid, so nothing shows through the card
     sys.Settle(item);
     let level = sys.LevelOf(item);
     let xp = sys.XPOf(item);
@@ -168,30 +292,7 @@ public abstract class WLvlCard {
     }
 
     let root = new inkCanvas();
-    root.SetName(n"WLvlCard");
-    if inMenu {
-      // left edge, halfway down: a clear spot in both the inventory and the item select screen
-      root.SetAnchor(inkEAnchor.CenterLeft);
-      root.SetAnchorPoint(0.0, 0.5);
-      root.SetMargin(60.0, 0.0, 0.0, 0.0);
-    } else {
-      // during play: left or right edge, at the height set in Mod Settings (0 = bottom, 100 = top).
-      // The card always stays fully on screen (the game's HUD is laid out on a 2160-pixel-tall canvas).
-      let pct = Cast<Float>(Max(0, Min(100, cfg.cardHeight))) / 100.0;
-      let room = MaxF(0.0, 2160.0 - h * s);
-      let top = (1.0 - pct) * room;
-      if cfg.cardPosition == 2 {
-        root.SetAnchor(inkEAnchor.TopRight);
-        root.SetAnchorPoint(1.0, 0.0);
-        root.SetMargin(0.0, top, 96.0, 0.0);
-      } else {
-        root.SetAnchor(inkEAnchor.TopLeft);
-        root.SetAnchorPoint(0.0, 0.0);
-        root.SetMargin(96.0, top, 0.0, 0.0);
-      }
-    }
     root.SetSize(w * s, h * s);
-    root.Reparent(win);
 
     let yellow = WLvlCard.Color(0.99, 0.93, 0.04, 1.0);
     let white = WLvlCard.Color(0.95, 0.95, 0.95, 1.0);
@@ -209,15 +310,32 @@ public abstract class WLvlCard {
     }
     WLvlCard.AddText(root, s, 30.0, 70.0, line, 36, n"Medium", yellow);
 
+    // hand tag: right-aligned on the level line, which leaves room even for long gun names on
+    // the name line above. Grey, so it reads as a label rather than a stat.
+    if NotEquals(hand, "") {
+      WLvlCard.AddTextRight(root, s, 30.0, 76.0, hand, 28, n"Semi-Bold", grey);
+    }
+
     if !compact {
       WLvlCard.AddDetails(root, s, sys, item, xp, cost, w, title, boost, notice, hint, yellow, white, grey);
     }
+    return root;
+  }
 
-    // the token changes with every card shown, so an old timer never removes a newer card
-    let cb = new WLvlCardHide();
-    cb.sys = sys;
-    cb.token = sys.NextCardToken();
-    GameInstance.GetDelaySystem(game).DelayCallback(cb, sys.Config().cardSeconds, false);
+  // Like AddText, but measured from the card's RIGHT edge: x is the gap between the text's right
+  // end and the card's right edge. Used for the hand tag (0.6.2).
+  private static func AddTextRight(parent: wref<inkCompoundWidget>, s: Float, x: Float, y: Float, text: String, size: Int32, style: CName, c: HDRColor) -> Void {
+    let t = new inkText();
+    t.SetAnchor(inkEAnchor.TopRight);
+    t.SetAnchorPoint(1.0, 0.0);
+    t.SetMargin(0.0, y * s, x * s, 0.0);
+    t.SetFontFamily("base\\gameplay\\gui\\fonts\\raj\\raj.inkfontfamily");
+    t.SetFontStyle(style);
+    t.SetFontSize(RoundF(Cast<Float>(size) * s));
+    t.SetTintColor(c);
+    t.SetFitToContent(true);
+    t.SetText(text);
+    t.Reparent(parent);
   }
 
   // Everything below the level line: XP bar, title, relic boost, notice and hint.

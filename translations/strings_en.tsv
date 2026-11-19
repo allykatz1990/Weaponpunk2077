@@ -3,6 +3,8 @@ WLvl-Card-LevelUp	LEVEL UP	Weapon card
 WLvl-Card-NewTitle	NEW TITLE: "{0}"	Weapon card
 WLvl-Card-NowShowing	Now showing "{0}"	Weapon card
 WLvl-Card-Level	LEVEL {0}	Weapon card
+WLvl-Card-LeftHand	LEFT HAND	Weapon card
+WLvl-Card-RightHand	RIGHT HAND	Weapon card
 WLvl-Card-Damage	+{0}% damage	Weapon card
 WLvl-Card-XP	{0} / {1} XP	Weapon card
 WLvl-Card-Boost	XP BOOST +{0}%    {1} kills left	Weapon card
@@ -199,6 +201,7 @@ WLvl-Set-compactCard	Compact card	Mod Settings: setting names
 WLvl-Set-cardPosition	Card side during play	Mod Settings: setting names
 WLvl-Set-cardHeight	Card height during play	Mod Settings: setting names
 WLvl-Set-cardScale	Card size (percent)	Mod Settings: setting names
+WLvl-Set-dualCards	Both cards when dual wielding	Mod Settings: setting names
 WLvl-Set-debugLog	Debug log	Mod Settings: setting names
 WLvl-SetDesc-enabled	Turns XP gain and level bonuses on or off. Saved levels are kept.	Mod Settings: setting descriptions
 WLvl-SetDesc-xpMultiplier	Scales all XP earned from kills.	Mod Settings: setting descriptions
@@ -225,6 +228,7 @@ WLvl-SetDesc-compactCard	When drawing a weapon, show only its name and level. Th
 WLvl-SetDesc-cardPosition	1: left edge of the screen.  2: right edge. (In menus the card is always at the middle left.)	Mod Settings: setting descriptions
 WLvl-SetDesc-cardHeight	Where the card sits on the screen during play: 0 is the bottom, 100 the top. The card always stays fully on screen. Default 20 keeps it clear of the game's level-up message.	Mod Settings: setting descriptions
 WLvl-SetDesc-cardScale	Makes the whole card bigger or smaller. 100 is the original size; lower it if the card covers too much of the screen. In menus the card is always drawn a little smaller than this.	Mod Settings: setting descriptions
+WLvl-SetDesc-dualCards	While dual wielding, show both guns' cards stacked (left hand on top), each marked with its hand.	Mod Settings: setting descriptions
 WLvl-SetDesc-debugLog	Writes every counted kill and level change to the WeaponLeveling log for bug reports.	Mod Settings: setting descriptions
 WLvl-Val-titleChoice-Auto	Strongest	Mod Settings: dropdown choices
 WLvl-Val-titleChoice-Second	Second strongest	Mod Settings: dropdown choices

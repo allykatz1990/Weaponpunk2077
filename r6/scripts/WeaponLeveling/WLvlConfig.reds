@@ -220,6 +220,15 @@ public class WLvlConfig {
   @runtimeProperty("ModSettings.max", "150")
   public let cardScale: Int32 = 100;
 
+  // Dual-wield card column (added in 0.6.2, see WLvlCard.ShowDual): while dual wielding, drawing
+  // a weapon or a level-up shows both hands' cards stacked, left-hand card on top, each tagged with
+  // its hand. Off = the old behaviour (one card, for the gun the event was about).
+  @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
+  @runtimeProperty("ModSettings.category", "WLvl-Cat-WeaponCard")
+  @runtimeProperty("ModSettings.displayName", "WLvl-Set-dualCards")
+  @runtimeProperty("ModSettings.description", "WLvl-SetDesc-dualCards")
+  public let dualCards: Bool = true;
+
   @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
   @runtimeProperty("ModSettings.category", "WLvl-Cat-Debug")
   @runtimeProperty("ModSettings.displayName", "WLvl-Set-debugLog")

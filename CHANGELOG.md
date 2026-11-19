@@ -15,18 +15,28 @@ why, and where in the code to look.
   multiplied by. Text for the setting: `WLvl-Set-cardScale` / `WLvl-SetDesc-cardScale` in
   `WLvlLang.reds` and the translation kit.
 
-### Fixed (needs in-game confirmation): left-hand gun earned no XP while dual wielding
-- **Why:** reported on Nexus (Nov 2026).
-- **Cause (likely):** kill credit came only from `attackData.GetWeapon()`, which with two guns
-  seems to report the right-hand gun (or nothing) for left-hand shots.
-- **Supporting evidence:** Expanded Dual Wielding (mod 35626) notes in its code that many vanilla
-  systems pick "the weapon" with a right-hand-first helper; its firing code doesn't touch hit data.
-- **What:** two checks decide which gun a hit is credited to while dual wielding:
-  1. `attackData.GetSource()`, when it is a weapon that differs from `GetWeapon()`;
-  2. failing that, ammo: if the left gun's magazine dropped since the last hit and the right
-     gun's did not, the left gun fired. Pellets of the same shot reuse the last decision.
-  Single-gun play is unaffected. Known limit: when both guns fire at once, the game's answer is kept.
-- **Code:** `HitWeapon`, `AmmoSaysLeft`, `DualWielding` and `WeaponLabel` (plus the `m_dw*`
-  fields) just above `OnPlayerHit` in
-  `WLvlSystem.reds`. The comment there explains how to read the new `dual-wield hit` debug
-  log line and what to try next if the fix doesn't work.
+### Added: both cards while dual wielding
+- **Why:** a player reported "dual wield left handgun doesn't count XP". Testing showed the XP
+  *was* counted (see below); the card only ever showed the right-hand gun, so it looked broken.
+  Stacked cards were the mod author's idea.
+- **What:** while dual wielding during play, drawing a weapon or a level-up shows both guns'
+  cards in one column: the right-hand (main) card in the usual spot, the left-hand card directly
+  on top of it. Each carries a RIGHT HAND / LEFT HAND tag on its level line, and only the gun
+  that levelled gets the LEVEL UP line. The column moves as one block with "Card height" and
+  "Card side", and always stays on screen. Menus and the spend menu still show one card (the
+  spend-menu card also gets a hand tag while dual wielding). New setting "Both cards when dual
+  wielding" (on by default) turns it off.
+- **Code:** `WLvlCard.reds`: `Show` decides single vs dual; `ShowDual` builds the column;
+  `ShowEx`'s old drawing body is now `Build` (returns an unplaced card) plus `PlaceInPlay`,
+  `Scale` and `StartHideTimer`; `AddTextRight` draws the hand tag. The left card is a second
+  widget named `WLvlCard2`, removed by `RemoveFrom` together with `WLvlCard`. Hand lookups:
+  `RightHandItem` / `LeftHandItem` in `WLvlSystem.reds`. Setting: `dualCards` in
+  `WLvlConfig.reds`.
+
+### Investigated: left-hand kill XP while dual wielding (no bug found)
+- Tested on game 2.5 + Expanded Dual Wielding 3.8: `attackData.GetWeapon()` reports the correct
+  gun for each hand and the left gun earns kill XP. `attackData.GetSource()` is always empty for
+  gunshots. Two fallbacks tried during this (source, and comparing magazine counts) were removed:
+  not needed, and the ammo one could misfire.
+- Kept: `HitWeapon` in `WLvlSystem.reds` as the one place a hit's weapon is decided, with a
+  "dual-wield hit" debug log line, in case another dual-wield mod or patch reports the wrong hand.
