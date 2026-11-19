@@ -204,6 +204,22 @@ public class WLvlConfig {
   @runtimeProperty("ModSettings.max", "100")
   public let cardHeight: Int32 = 20;
 
+  // Card size as a percent of the original design (added in 0.6.2 after a player reported the card
+  // was too large). 100 = the size the card had before this setting existed, so updating the mod
+  // changes nothing for anyone who liked it. WLvlCard.ShowEx turns this into the scale factor `s`
+  // that every rectangle and text size on the card is multiplied by; in menus it is multiplied
+  // again by 0.8 (the menu card was always drawn smaller). The 50-150 range is a guess at sensible
+  // limits, not a tested one: if text gets unreadable at 50 on low resolutions, raise the minimum
+  // here and in the clamp in WLvlCard.ShowEx.
+  @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
+  @runtimeProperty("ModSettings.category", "WLvl-Cat-WeaponCard")
+  @runtimeProperty("ModSettings.displayName", "WLvl-Set-cardScale")
+  @runtimeProperty("ModSettings.description", "WLvl-SetDesc-cardScale")
+  @runtimeProperty("ModSettings.step", "5")
+  @runtimeProperty("ModSettings.min", "50")
+  @runtimeProperty("ModSettings.max", "150")
+  public let cardScale: Int32 = 100;
+
   @runtimeProperty("ModSettings.mod", "Weaponpunk 2077")
   @runtimeProperty("ModSettings.category", "WLvl-Cat-Debug")
   @runtimeProperty("ModSettings.displayName", "WLvl-Set-debugLog")

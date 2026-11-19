@@ -473,6 +473,59 @@ public class WLvlSystem extends ScriptableSystem {
     }
   }
 
+  // ---------------------------------------------------------------- which gun fired a hit
+  // DUAL-WIELD FIX (0.6.2). Bug report on Nexus (Nov 2026): while dual wielding, kills made with the
+  // LEFT-hand gun earned no XP.
+  //
+  // Background: every XP, title and feat decision starts from the weapon a hit is credited to. Up to
+  // 0.6.1 that was only attackData.GetWeapon(). That works with one gun, but with two guns the game
+  // appears to fill GetWeapon() with the right-hand (main) weapon, or leave it empty, for shots from
+  // the left hand. A left-hand kill was then paid to the right-hand gun, or to nobody.
+  //
+  // The fix: attackData.GetSource() is the object the attack physically came from, which for a
+  // gunshot is the gun itself. When the source is a weapon and it is not the one GetWeapon()
+  // reports, the source wins. With a single gun the two always agree, so nothing changes there.
+  //
+  // NOT CONFIRMED IN GAME YET when this was written (we had no access to the 2.5 game scripts at
+  // the time). With "Debug log" on, every dual-wield hit writes a "dual-wield hit" line to the
+  // WeaponLeveling log showing what the game reported. If left-hand kills still earn nothing, that
+  // line shows which case we are in:
+  //   - source = the left gun          -> this fix works; look elsewhere.
+  //   - source = right gun or "none"   -> the game gives no way to tell the hands apart from the
+  //                                       hit, and the next step is to remember which hand last
+  //                                       fired (a hook on the shooting code) and use that here.
+  private func HitWeapon(hitEvent: ref<gameHitEvent>) -> wref<WeaponObject> {
+    let reported = hitEvent.attackData.GetWeapon();
+    let source = hitEvent.attackData.GetSource() as WeaponObject;
+    let chosen = reported;
+    if IsDefined(source) && (!IsDefined(reported) || source.GetItemID() != reported.GetItemID()) {
+      chosen = source;
+    }
+    if this.Config().debugLog && this.DualWielding() {
+      this.Log("dual-wield hit: reported " + this.WeaponLabel(reported) + ", source " + this.WeaponLabel(source)
+        + ", credited " + this.WeaponLabel(chosen));
+    }
+    return chosen;
+  }
+
+  // True when there is a gun in the left-hand slot, which only happens while dual wielding.
+  private func DualWielding() -> Bool {
+    let player = GetPlayer(this.GetGameInstance());
+    if !IsDefined(player) {
+      return false;
+    }
+    let left = GameInstance.GetTransactionSystem(this.GetGameInstance()).GetItemInSlot(player, t"AttachmentSlots.WeaponLeft");
+    return IsDefined(left);
+  }
+
+  // For the debug log only: "Model name (left)" / "(right)" / "(holstered)", or "none".
+  private func WeaponLabel(w: wref<WeaponObject>) -> String {
+    if !IsDefined(w) {
+      return "none";
+    }
+    return WLvlSystem.ModelName(w.GetItemID()) + " (" + this.HandOf(w.GetItemID()) + ")";
+  }
+
   // Called for every hit the player lands. Applies the level bonus and remembers the victim.
   public func OnPlayerHit(hitEvent: ref<gameHitEvent>) -> Void {
     if !this.Config().enabled {
@@ -481,7 +534,9 @@ public class WLvlSystem extends ScriptableSystem {
     let game = this.GetGameInstance();
     let now = EngineTime.ToFloat(GameInstance.GetSimTime(game));
     let victim = hitEvent.target as ScriptedPuppet;
-    let weapon = hitEvent.attackData.GetWeapon();
+    // Which gun fired this hit decides who gets the kill XP, the title progress and the feat
+    // checks below. Don't read attackData.GetWeapon() directly here: see HitWeapon for why.
+    let weapon = this.HitWeapon(hitEvent);
     if IsDefined(victim) && this.SmasherShot(hitEvent, victim, weapon) {
       return;
     }

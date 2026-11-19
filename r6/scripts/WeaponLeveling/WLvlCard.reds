@@ -114,11 +114,15 @@ public abstract class WLvlCard {
       return;
     }
     let inMenu = sys.InMenu();
-    // smaller in menus, where space is tight, and solid so nothing shows through it
-    let s = 1.0;
+    // `s` is the card's overall scale. Every size below is written for s = 1.0 and multiplied by s
+    // when drawn (see AddRect / AddText), so changing s resizes the whole card evenly.
+    // It starts from the player's "Card size" setting (cardScale, a percent, clamped here in case
+    // the config was edited by hand), then the card is drawn at 80% of that in menus, where space
+    // is tight. The background is solid (0.95 alpha) so nothing shows through it.
+    let s = Cast<Float>(Max(50, Min(150, sys.Config().cardScale))) / 100.0;
     let backAlpha = 0.95;
     if inMenu {
-      s = 0.8;
+      s *= 0.8;
     }
     WLvlCard.RemoveFrom(WLvlCard.Window(false));
     WLvlCard.RemoveFrom(WLvlCard.Window(true));

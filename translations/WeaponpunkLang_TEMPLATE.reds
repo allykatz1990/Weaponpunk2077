@@ -258,6 +258,7 @@ public class WLvlLang_xx_xx extends ModLocalizationPackage {
     this.Text("WLvl-Set-compactCard", "Compact card");
     this.Text("WLvl-Set-cardPosition", "Card side during play");
     this.Text("WLvl-Set-cardHeight", "Card height during play");
+    this.Text("WLvl-Set-cardScale", "Card size (percent)");
     this.Text("WLvl-Set-debugLog", "Debug log");
 
     // ---- Mod Settings: setting descriptions
@@ -285,6 +286,7 @@ public class WLvlLang_xx_xx extends ModLocalizationPackage {
     this.Text("WLvl-SetDesc-compactCard", "When drawing a weapon, show only its name and level. The spend menu and level-ups still use the full card.");
     this.Text("WLvl-SetDesc-cardPosition", "1: left edge of the screen.  2: right edge. (In menus the card is always at the middle left.)");
     this.Text("WLvl-SetDesc-cardHeight", "Where the card sits on the screen during play: 0 is the bottom, 100 the top. The card always stays fully on screen. Default 20 keeps it clear of the game's level-up message.");
+    this.Text("WLvl-SetDesc-cardScale", "Makes the whole card bigger or smaller. 100 is the original size; lower it if the card covers too much of the screen. In menus the card is always drawn a little smaller than this.");
     this.Text("WLvl-SetDesc-debugLog", "Writes every counted kill and level change to the WeaponLeveling log for bug reports.");
 
     // ---- Mod Settings: dropdown choices
