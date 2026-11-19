@@ -19,8 +19,14 @@ why, and where in the code to look.
 - **Why:** reported on Nexus (Nov 2026).
 - **Cause (likely):** kill credit came only from `attackData.GetWeapon()`, which with two guns
   seems to report the right-hand gun (or nothing) for left-hand shots.
-- **What:** the gun a hit is credited to now prefers `attackData.GetSource()` when that is a
-  weapon and differs from `GetWeapon()`. Single-gun play is unaffected.
-- **Code:** `HitWeapon`, `DualWielding` and `WeaponLabel` just above `OnPlayerHit` in
+- **Supporting evidence:** Expanded Dual Wielding (mod 35626) notes in its code that many vanilla
+  systems pick "the weapon" with a right-hand-first helper; its firing code doesn't touch hit data.
+- **What:** two checks decide which gun a hit is credited to while dual wielding:
+  1. `attackData.GetSource()`, when it is a weapon that differs from `GetWeapon()`;
+  2. failing that, ammo: if the left gun's magazine dropped since the last hit and the right
+     gun's did not, the left gun fired. Pellets of the same shot reuse the last decision.
+  Single-gun play is unaffected. Known limit: when both guns fire at once, the game's answer is kept.
+- **Code:** `HitWeapon`, `AmmoSaysLeft`, `DualWielding` and `WeaponLabel` (plus the `m_dw*`
+  fields) just above `OnPlayerHit` in
   `WLvlSystem.reds`. The comment there explains how to read the new `dual-wield hit` debug
   log line and what to try next if the fix doesn't work.

@@ -92,6 +92,13 @@ public class WLvlSystem extends ScriptableSystem {
   private let m_tooltipPrev: ItemID;
   private let m_hitByMe: array<EntityID>;              // NPCs V has damaged (recent, capped)
   private let m_startedIt: array<EntityID>;            // NPCs that attacked V before V attacked them
+  // dual wielding: which hand fired (see HitWeapon / AmmoSaysLeft). Session only, not saved.
+  private let m_dwLeftItem: ItemID;                    // gun in the left hand at the last dual-wield hit
+  private let m_dwLeftMag: Int32;                      // ...and how many rounds its magazine held then
+  private let m_dwRightItem: ItemID;                   // same two for the right hand
+  private let m_dwRightMag: Int32;
+  private let m_dwLastLeft: Bool;                      // the last hit we decided on was the left gun's
+  private let m_dwLastTime: Float;                     // ...at this engine time (pellets of one shot reuse it)
   // feats, rebuilt at runtime
   private let m_rkItems: array<ItemID>;                // recent kills (last 5 seconds): weapon...
   private let m_rkTimes: array<Float>;                 // ...time...
@@ -481,31 +488,92 @@ public class WLvlSystem extends ScriptableSystem {
   // 0.6.1 that was only attackData.GetWeapon(). That works with one gun, but with two guns the game
   // appears to fill GetWeapon() with the right-hand (main) weapon, or leave it empty, for shots from
   // the left hand. A left-hand kill was then paid to the right-hand gun, or to nobody.
+  // Supporting evidence: the Expanded Dual Wielding mod (nexusmods.com/cyberpunk2077/mods/35626)
+  // notes in its own code that many vanilla systems resolve "the weapon" through an active-weapon
+  // helper that checks the right hand first, and it had to replace some of them to make left-hand
+  // guns work. Its firing code does not touch hit data, so the fix belongs here.
   //
-  // The fix: attackData.GetSource() is the object the attack physically came from, which for a
-  // gunshot is the gun itself. When the source is a weapon and it is not the one GetWeapon()
-  // reports, the source wins. With a single gun the two always agree, so nothing changes there.
+  // The fix runs two checks, in this order:
+  //   1. attackData.GetSource() is the object the attack came from, which for a gunshot should be
+  //      the gun itself. If it is a weapon and differs from GetWeapon(), the source wins.
+  //   2. If that still gives the right-hand gun (or nothing) while dual wielding, look at the
+  //      ammo: if the left gun's magazine dropped since the last hit and the right gun's did not,
+  //      the left gun fired (see AmmoSaysLeft).
+  // With a single gun, neither check changes anything.
   //
-  // NOT CONFIRMED IN GAME YET when this was written (we had no access to the 2.5 game scripts at
-  // the time). With "Debug log" on, every dual-wield hit writes a "dual-wield hit" line to the
-  // WeaponLeveling log showing what the game reported. If left-hand kills still earn nothing, that
-  // line shows which case we are in:
-  //   - source = the left gun          -> this fix works; look elsewhere.
-  //   - source = right gun or "none"   -> the game gives no way to tell the hands apart from the
-  //                                       hit, and the next step is to remember which hand last
-  //                                       fired (a hook on the shooting code) and use that here.
+  // NOT CONFIRMED IN GAME YET when this was written. With "Debug log" on, every dual-wield hit writes
+  // a "dual-wield hit" line to the WeaponLeveling log: what the game reported, what the source was,
+  // which gun was credited and why ("source", "ammo" or "game"). If left-hand kills still earn
+  // nothing, that line shows where it goes wrong. Known limit: when both guns fire in the same
+  // moment (both triggers held), the ammo check can't tell the hands apart and the game's answer
+  // is kept.
   private func HitWeapon(hitEvent: ref<gameHitEvent>) -> wref<WeaponObject> {
     let reported = hitEvent.attackData.GetWeapon();
     let source = hitEvent.attackData.GetSource() as WeaponObject;
     let chosen = reported;
+    let why = "game";
+    // check 1: the source
     if IsDefined(source) && (!IsDefined(reported) || source.GetItemID() != reported.GetItemID()) {
       chosen = source;
+      why = "source";
     }
-    if this.Config().debugLog && this.DualWielding() {
-      this.Log("dual-wield hit: reported " + this.WeaponLabel(reported) + ", source " + this.WeaponLabel(source)
-        + ", credited " + this.WeaponLabel(chosen));
+    if this.DualWielding() {
+      let player = GetPlayer(this.GetGameInstance());
+      let left = GameObject.GetLeftActiveWeapon(player);
+      let right = GameObject.GetRightActiveWeapon(player);
+      // check 2: the ammo, only when we'd otherwise credit the right hand or nobody
+      let creditedRight = !IsDefined(chosen) || (IsDefined(right) && chosen.GetItemID() == right.GetItemID());
+      let leftFired = this.AmmoSaysLeft(left, right);
+      if creditedRight && leftFired && IsDefined(left) {
+        chosen = left;
+        why = "ammo";
+      }
+      if this.Config().debugLog {
+        this.Log("dual-wield hit: reported " + this.WeaponLabel(reported) + ", source " + this.WeaponLabel(source)
+          + ", credited " + this.WeaponLabel(chosen) + " [" + why + "]");
+      }
     }
     return chosen;
+  }
+
+  // Ammo check for dual wielding: true when this hit most likely came from the LEFT gun.
+  // Compares both guns' magazines with what they held at the previous dual-wield hit:
+  //   - left dropped, right didn't  -> left fired.
+  //   - right dropped (alone or with the left) -> not provably left; keep the game's answer.
+  //   - neither changed -> another pellet/bullet of the same shot (shotguns, burst fire), so we
+  //     repeat the previous decision if it was under 0.3 s ago.
+  // A magazine that went UP (reload) or a gun that changed hands counts as "didn't drop".
+  // Guns without a magazine (melee, infinite-ammo mods) never drop, so this simply stays false.
+  // The very first hit after starting to dual wield only records a baseline (there is nothing to
+  // compare with yet), so that one hit keeps the game's answer. Kills go to the LAST gun to hit, so
+  // in practice this rarely matters.
+  private func AmmoSaysLeft(left: wref<WeaponObject>, right: wref<WeaponObject>) -> Bool {
+    let now = this.Now();
+    let leftMag = -1;
+    let rightMag = -1;
+    let leftDropped = false;
+    let rightDropped = false;
+    if IsDefined(left) {
+      leftMag = Cast<Int32>(WeaponObject.GetMagazineAmmoCount(left));
+      leftDropped = left.GetItemID() == this.m_dwLeftItem && leftMag < this.m_dwLeftMag;
+      this.m_dwLeftItem = left.GetItemID();
+    }
+    if IsDefined(right) {
+      rightMag = Cast<Int32>(WeaponObject.GetMagazineAmmoCount(right));
+      rightDropped = right.GetItemID() == this.m_dwRightItem && rightMag < this.m_dwRightMag;
+      this.m_dwRightItem = right.GetItemID();
+    }
+    this.m_dwLeftMag = leftMag;
+    this.m_dwRightMag = rightMag;
+    let result = false;
+    if leftDropped && !rightDropped {
+      result = true;
+    } else if !leftDropped && !rightDropped && now - this.m_dwLastTime < 0.3 {
+      result = this.m_dwLastLeft;
+    }
+    this.m_dwLastLeft = result;
+    this.m_dwLastTime = now;
+    return result;
   }
 
   // True when there is a gun in the left-hand slot, which only happens while dual wielding.
