@@ -1,4 +1,4 @@
-![Weaponpunk 2077 – Enhanced Weapon Leveling](banner.jpg)
+![Weaponpunk 2077 – Weapon Leveling Enhanced](banner.jpg)
 
 # Weaponpunk 2077 – Weapon Leveling Enhanced
 
@@ -6,7 +6,7 @@
 
 A weapon progression mod for Cyberpunk 2077 2.5 with Phantom Liberty. Your weapons level up as you use them, with no level cap, and each level makes them a little better. You can also put spare perk, attribute and relic points into a weapon.
 
-This mod also includes a hidden system. No spoilers here: play and discover it. If you can't wait, `SPOILERS.md` explains everything.
+This mod also includes a hidden system. No spoilers here: play and discover it. If you can't wait, [SPOILERS.md](SPOILERS.md) explains everything (spoilers, obviously).
 
 **Status: public beta, v0.6.2 (Dual Wielding QoL patch).** Back up your saves.
 
@@ -21,8 +21,23 @@ This mod also includes a hidden system. No spoilers here: play and discover it. 
 - **Better Leveling support.** With Better Leveling installed, point values scale automatically to its level cap and points per level.
 - **Weapon card.** Shows the weapon's level, damage bonus and XP when you draw it. Its side, its height on screen (0 bottom to 100 top) and compact mode are settings.
 - **Inventory tooltip line** with the weapon's level and XP.
-- **Everything is configurable** in Mod Settings, and every setting explains what it does.
+- **Everything is configurable** in Mod Settings, and every setting explains what it does: kill XP multiplier, damage bonus strength, handling bonus, headshot and stealth XP bonus, reduced XP from low-level enemies, point values, relic boost size and length, keybinds and the weapon card.
 - **Translatable.** All text, including every setting, can be translated with one add-on file. See [Translations](#translations).
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Weapon card on draw](screenshots/01-weapon-card-copperhead.webp)<br>Weapon card on draw. Position, size and duration are all settings. | ![Modded Arclight bow](screenshots/02-modded-arclight-bow.webp)<br>Modded weapons level too, no patch needed (the Arclight bow comes from another mod). |
+| ![Mantis Blades card](screenshots/03-mantis-blades.webp)<br>Melee weapons and arm cyberware level too. | ![Inventory tooltip](screenshots/04-inventory-tooltip.webp)<br>Inventory tooltip with the weapon's level and XP. |
+| ![Settings: spending points and weapon card](screenshots/05-settings-spending-card.webp)<br>Mod Settings (shown here in Mod Configuration Menu): spending points, keybinds, point values, relic boost. | ![Settings: leveling](screenshots/06-settings-leveling.webp)<br>Mod Settings: kill XP, damage bonus, handling, headshot/stealth XP, low-level XP. |
+
+<details>
+<summary><b>⚠ Spoiler screenshot: shows the hidden system. Click only if you don't want to discover it yourself.</b></summary>
+
+![Spoiler: hidden system in the inventory tooltip](screenshots/99-SPOILER-hidden-system.webp)
+
+</details>
 
 ## Requirements
 
@@ -34,6 +49,10 @@ This mod also includes a hidden system. No spoilers here: play and discover it. 
 - [Mod Settings](https://www.nexusmods.com/cyberpunk2077/mods/4885) (optional, needed to change any setting)
 
 No REDmod. PC only: console mods on mod.io don't allow script extenders.
+
+**Mod Configuration Menu (MCM):** supported. Weaponpunk's settings show up there like any other Mod Settings mod.
+
+**Weapons from other mods** work out of the box, no patch needed. Anything the game counts as a weapon levels up and earns XP. A few hidden extras are tied to specific vanilla weapons, so those stay vanilla-only.
 
 **Not compatible with Weapon Mastery.** Disable it before installing.
 
