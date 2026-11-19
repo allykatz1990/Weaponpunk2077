@@ -26,6 +26,9 @@ This mod also includes a hidden system. No spoilers here: play and discover it. 
 
 ## Screenshots
 
+![Dual wielding, both weapon cards](screenshots/00-dual-wield-cards.webp)
+Unedited in-game capture: dual wielding, both weapon cards shown, each marked RIGHT HAND / LEFT HAND.
+
 | | |
 |---|---|
 | ![Weapon card on draw](screenshots/01-weapon-card-copperhead.webp)<br>Weapon card on draw. Position, size and duration are all settings. | ![Modded Arclight bow](screenshots/02-modded-arclight-bow.webp)<br>Modded weapons level too, no patch needed (the Arclight bow comes from another mod). |
