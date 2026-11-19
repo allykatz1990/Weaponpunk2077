@@ -3,7 +3,7 @@
 Notes for players and for anyone who maintains this mod later. Each entry says what changed,
 why, and where in the code to look.
 
-## 0.6.2 beta (in testing)
+## 0.6.2 beta: Dual Wielding QoL patch (Nov 2026)
 
 ### Added: "Card size (percent)" setting
 - **Why:** a player reported the weapon card was too large (Nexus comments, Nov 2026).
