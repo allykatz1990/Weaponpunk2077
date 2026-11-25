@@ -114,7 +114,23 @@ public abstract class WLvlCard {
   // While dual wielding during play (and with the "Both cards when dual wielding" setting on),
   // this shows BOTH hands' cards stacked instead of one: see ShowDual.
   public static func Show(game: GameInstance, sys: ref<WLvlSystem>, item: ItemID, notice: String) -> Void {
-    if !IsDefined(sys) || !sys.Config().showCard {
+    if !IsDefined(sys) {
+      return;
+    }
+    // CARD DIAGNOSTICS (0.6.3, debug log only). Added after players on 0.6.2 reported that XP and
+    // tooltips work but the card never appears, even on a level-up. A level-up calls Show straight
+    // from the kill code, so the request does happen; until now nothing on the card path wrote to
+    // the log, so a player's log could not say where it stopped. Every exit point now logs a
+    // "card:" line. When a report comes in, the last "card:" line before the gap is the culprit:
+    //   - "card: skipped, showCard is off"      -> setting
+    //   - "inMenu true" during play            -> UI_System.IsInMenu is stuck/true, so the card goes
+    //                                             to the menu layer, which is hidden in gameplay
+    //   - "no HUD/menu window"                  -> Codeware could not hand us the ink layer
+    //   - "attached ... children N"             -> the card WAS added; the problem is position/size
+    sys.DebugLog("card: show requested for " + WLvlSystem.ModelName(item) + " notice '" + notice + "', showCard "
+      + ToString(sys.Config().showCard) + ", inMenu " + ToString(sys.InMenu()));
+    if !sys.Config().showCard {
+      sys.DebugLog("card: skipped, showCard is off");
       return;
     }
     if !sys.InMenu() && sys.Config().dualCards {
@@ -123,6 +139,7 @@ public abstract class WLvlCard {
       // only when the card is about one of the two guns in V's hands (a level-up from an
       // explosion credited to a holstered gun still gets the plain single card)
       if ItemID.IsValid(right) && ItemID.IsValid(left) && (item == right || item == left) {
+        sys.DebugLog("card: dual-wield path (right " + WLvlSystem.ModelName(right) + ", left " + WLvlSystem.ModelName(left) + ")");
         WLvlCard.ShowDual(game, sys, right, left, item, notice);
         return;
       }
@@ -143,6 +160,7 @@ public abstract class WLvlCard {
     WLvlCard.RemoveFrom(WLvlCard.Window(true));
     let win = WLvlCard.Window(false);
     if !IsDefined(win) {
+      sys.DebugLog("card: dual, no HUD window (inkHUDLayer or its virtual window missing), nothing drawn");
       return;
     }
     let s = WLvlCard.Scale(sys, false);
@@ -167,6 +185,7 @@ public abstract class WLvlCard {
     WLvlCard.PlaceInPlay(rightCard, sys.Config(), leftH + gap + rightH, leftH + gap);
     leftCard.Reparent(win);
     rightCard.Reparent(win);
+    WLvlCard.LogPlaced(sys, "dual", win, rightCard, s);
     WLvlCard.StartHideTimer(game, sys);
   }
 
@@ -183,6 +202,7 @@ public abstract class WLvlCard {
     WLvlCard.RemoveFrom(WLvlCard.Window(true));
     let win = WLvlCard.Window(inMenu);
     if !IsDefined(win) {
+      sys.DebugLog("card: no " + (inMenu ? "menu" : "HUD") + " window (ink layer or its virtual window missing), nothing drawn");
       return;
     }
     let hand = "";
@@ -205,7 +225,23 @@ public abstract class WLvlCard {
       WLvlCard.PlaceInPlay(root, sys.Config(), WLvlCard.UnscaledHeight(sys, notice, hint) * s, 0.0);
     }
     root.Reparent(win);
+    WLvlCard.LogPlaced(sys, inMenu ? "single/menu layer" : "single/HUD layer", win, root, s);
     WLvlCard.StartHideTimer(game, sys);
+  }
+
+  // Diagnostic (0.6.3): one log line after a card is attached, with where it went. If this line
+  // shows up but the player still sees nothing, the widget exists and the problem is placement,
+  // size or the layer being hidden, not the trigger. Debug log only (DebugLog checks the setting).
+  private static func LogPlaced(sys: ref<WLvlSystem>, path: String, win: wref<inkCompoundWidget>, root: ref<inkCanvas>, s: Float) -> Void {
+    if !sys.Config().debugLog {
+      return;
+    }
+    let m = root.GetMargin();
+    let size = root.GetSize();
+    sys.DebugLog("card: attached (" + path + "), window children " + IntToString(win.GetNumChildren())
+      + ", margin L" + FloatToStringPrec(m.left, 0) + " T" + FloatToStringPrec(m.top, 0) + " R" + FloatToStringPrec(m.right, 0)
+      + ", size " + FloatToStringPrec(size.X, 0) + "x" + FloatToStringPrec(size.Y, 0) + ", scale " + FloatToStringPrec(s, 2)
+      + ", visible " + ToString(win.IsVisible()) + ", hide in " + FloatToStringPrec(sys.Config().cardSeconds, 1) + "s");
   }
 
   // `s`, the card's overall scale. Every size in Build is written for s = 1.0 and multiplied by s
@@ -392,6 +428,7 @@ public abstract class WLvlCard {
     if sys.CardToken() != token {
       return;
     }
+    sys.DebugLog("card: hidden by timer (token " + IntToString(token) + ")");
     WLvlCard.RemoveFrom(WLvlCard.Window(false));
     WLvlCard.RemoveFrom(WLvlCard.Window(true));
   }

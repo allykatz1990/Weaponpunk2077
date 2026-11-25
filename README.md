@@ -8,7 +8,7 @@ A weapon progression mod for Cyberpunk 2077 2.5 with Phantom Liberty. Your weapo
 
 This mod also includes a hidden system. No spoilers here: play and discover it. If you can't wait, [SPOILERS.md](SPOILERS.md) explains everything (spoilers, obviously).
 
-**Status: public beta, v0.6.2 (Dual Wielding QoL patch).** Back up your saves.
+**Status: public beta, v0.6.3 (card diagnostics).** Back up your saves.
 
 ## Features
 

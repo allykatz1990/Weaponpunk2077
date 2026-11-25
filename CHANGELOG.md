@@ -3,6 +3,26 @@
 Notes for players and for anyone who maintains this mod later. Each entry says what changed,
 why, and where in the code to look.
 
+## 0.6.3 beta: card diagnostics (Nov 2026)
+
+### Added: debug log lines for the weapon card
+- **Why:** players on 0.6.2 reported that XP, levels and tooltips work but the weapon card never
+  appears, even with only Weaponpunk and its requirements installed (Nexus posts, Nov 24 2026).
+  One player's log showed a level-up (`Unity: +1250 XP, level 5, 935 / 6900`), and a level-up
+  calls the card straight from the kill code, so the card *was* requested and failed while
+  being drawn or placed. Nothing on the card path logged anything, so the logs couldn't say where.
+- **What:** with "Debug log" on (Mod Settings -> Debug), every step of showing a card writes a
+  `card:` line to the WeaponLeveling log: the request (with the in-menu flag), a skip by the
+  "Show card" setting, the dual-wield path, a missing HUD/menu window, and finally where the card
+  was attached (layer, position, size, scale, whether the window is visible). The hide timer logs
+  too. No gameplay changes; with the debug log off nothing is written.
+- **How to read a report:** the last `card:` line tells you where it stopped. `inMenu true` during
+  play means the game's in-menu flag is stuck on, so the card goes to the menu layer, which is
+  hidden in gameplay. An `attached` line means the card exists and the problem is its position,
+  size or a hidden layer.
+- **Code:** `WLvlCard.reds`: `Show`, `ShowDual`, `ShowEx`, `Hide`, and the new `LogPlaced`.
+- No save changes. Install over 0.6.2 as usual.
+
 ## 0.6.2 beta: Dual Wielding QoL patch (Nov 2026)
 
 ### Added: "Card size (percent)" setting
